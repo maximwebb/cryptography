@@ -7,23 +7,24 @@ function setup() {
 	});
 }
 
-var re;
 
 function enterInput() {
 	inputText = document.getElementById('input').value;
-
-	re = new RegExp(document.getElementById('input').value, 'g');
-	verifyPostCode('Something. Then with something else, you might! Say  that this is a weird sentence??...(no)');
+	let outputText = splitString(inputText, 4);
+	document.getElementById('output').value = outputText;
 }
 
-//var re = /\d{2}/;
-
-
-function verifyPostCode(str) {
-	var arr = str.replace(re, '');
-	console.log(arr[0]);
+//Removes spaces & punctuation from string
+function removePunc(str) {
+	return str.replace(/\W+/g, '');
 }
 
-function removeSpace(str) {
-	//return
+//Removes spaces & punctuation then splits string into groups of n.
+function splitString(str, n) {
+	str = removePunc(str);
+	str = str.split('');
+	for (i = n; i < str.length; i+= (n+1)) {
+		str.splice(i, 0, " ");
+	}
+	return str.join('');
 }
