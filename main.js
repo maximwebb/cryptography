@@ -5,7 +5,7 @@ function setup() {
 
 	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
 	document.getElementById("split-input").addEventListener('wheel', function(e) {
-		scrollDropdown("split");
+		scrollDropdown("split", e);
 	});
 	
 	//On change to the 'split-input' call changeDropdown with target 'split'
@@ -39,8 +39,8 @@ function changeDropdown(target) {
 	}
 }
 
-//using the passed through scroll event, check if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and incremant/decrement (unless at min value)
-function scrollDropdown(target) {
+//using the passed through scroll event, check if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and increment/decrement (unless at min value)
+function scrollDropdown(target, e) {
 	let length = document.getElementById(target + "-input").value
 	if (e.deltaY < 0) {
 		document.getElementById(target + "-btn").setAttribute("onclick", "execMethod('" + target + "str', [" + length+1 + "])");
@@ -129,3 +129,23 @@ function caesarShift(str, type, rot) {
 	return shiftStr;
 }
 
+//Performs a monoalphabetic substitution encryption/decryption
+function monoSubstit(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
+	let encrypt = (type === 'encrypt');
+	let strArr = str.split('');
+	let outputStr = '';
+
+	let keyArr = new Array(26).fill([]);
+	keyArr = keyArr.map((x, index) => [alphabet.charAt(index), key.charAt(index)]);
+	if (type === 'decrypt') {
+		keyArr.sort((a, b) => a[1].charCodeAt(0) - b[1].charCodeAt(0));
+	}
+
+	for (i = 0; i < strArr.length; i++) {
+		let charNum = strArr[i].charCodeAt(0);
+		if (charNum >= 97 && charNum <= 122) outputStr += keyArr[charNum - 97][+encrypt];
+		else if (charNum >= 65 && charNum <= 90) outputStr += (keyArr[charNum - 65][+encrypt]).toUpperCase();
+		else outputStr += strArr[i];
+	}
+	return outputStr;
+}
