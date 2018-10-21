@@ -1,9 +1,7 @@
 var inputText = "";
 function setup() {
-	document.getElementById('input').addEventListener('keydown', function(e) {
-		if (e.keyCode === 13) {
-			execMethod();
-		}
+	document.getElementById('split-input').addEventListener('change', function(e) {
+		changeDropdown('split');
 	});
 }
 
@@ -24,10 +22,9 @@ function execMethod(command, params = []) {
 	document.getElementById('output').value = outputText;
 }
 
-function changeDropdown(target, val) {
+function changeDropdown(target) {
 	if (target === 'split') {
-		document.getElementById('dropdown-split').innerHTML = "Split (" + val + ")";
-		document.getElementById('dropdown-split-btn').setAttribute('onclick', 'execMethod("splitstr", [' + val + '])');
+		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod("splitstr", [' + document.getElementById(target + '-input').value + '])');
 	}
 }
 
@@ -45,6 +42,10 @@ function removePunc(str) {
 
 //Removes spaces & punctuation then splits string into groups of n.
 function splitString(str, n) {
+	if (typeof(n) !== "number" || n < 1) {
+		alert('Please enter a valid number.');
+		return "error";
+	}
 	str = removePunc(str);
 	let arr = str.split('');
 	for (i = n; i < arr.length; i+= (n+1)) {

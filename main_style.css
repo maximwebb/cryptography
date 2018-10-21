@@ -24,7 +24,7 @@
 }
 
 .option-1 {
-    margin: 0 4px;
+    margin: 0 12px;
     padding: 8px;
     border-radius: 2px;
     cursor: pointer;
@@ -35,6 +35,21 @@
 .option-1:hover {
     background-color: #2e96cb;
     color: #ffffff;
+}
+
+.option-2 {
+    margin: 0 4px;
+    padding: 8px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid #2e96cb;
+    background-color: #e8e8e8;
+    width: 50px;
+}
+
+.option-2:focus {
+    background-color: #ffffff;
 }
 
 .dropdown:hover .dropdown-content {

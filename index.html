@@ -15,22 +15,11 @@
 <div id="control-panel-container">
     <div id="control-panel">
         <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
-        <div class="dropdown" style="margin-right: 0">
-            <div class="option option-1" id="dropdown-split" style="margin-right: 0">Split (3)</div>
-            <div class="dropdown-content">
-                <div onclick="changeDropdown('split', 1)">1</div>
-                <div onclick="changeDropdown('split', 2)">2</div>
-                <div onclick="changeDropdown('split', 3)">3</div>
-                <div onclick="changeDropdown('split', 4)">4</div>
-                <div onclick="changeDropdown('split', 5)">5</div>
-                <div onclick="changeDropdown('split', 6)">6</div>
-                <div onclick="changeDropdown('split', 7)">7</div>
-                <div onclick="changeDropdown('split', 8)">8</div>
-                <div onclick="changeDropdown('split', 9)">9</div>
-                <div onclick="changeDropdown('split', 10)">10</div>
-            </div>
+        <div class="dropdown" style="margin-right: 0;">
+            <label for="split-input" >Split string:</label>
+            <input class="option option-2" id="split-input" type="number" value="3" name="split-input" min="1" style="padding-top: 11px">
         </div>
-        <div class="option option-1" id="dropdown-split-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
+        <div class="option option-1" id="split-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
         <div class="option option-1" onclick="execMethod('freqan')">Frequency Analysis</div>
     </div>
 </div>
