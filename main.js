@@ -23,6 +23,10 @@ function execMethod(command, params = []) {
 
 	document.getElementById('output').value = outputText;
 }
+//Really great function Will wrote
+function foobar() {
+	console.log("Hello World");
+}
 
 //Copies output to clipboard
 function copyOutput() {
