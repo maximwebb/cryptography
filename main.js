@@ -1,4 +1,6 @@
-var inputText = "";
+let inputText = '';
+let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+
 function setup() {
 	document.getElementById('split-input').addEventListener('change', function(e) {
 		changeDropdown('split');
@@ -91,3 +93,19 @@ function printFreqArr(arr) {
 	}
 	return str;
 }
+
+//Performs a Caesar shift encryption/decryption
+function caesarShift(str, type, rot) {
+	if (type === 'decrypt') rot = 26 - rot;
+	let arr = str.split('');
+	let shiftStr = '';
+	for (i = 0; i < arr.length; i++) {
+		let charNum = arr[i].charCodeAt(0);
+		if (charNum >= 97 && charNum <= 122) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 97 + rot) % 26) + 97);
+		else if (charNum >= 65 && charNum <= 90) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 65 + rot) % 26) + 65);
+		else shiftStr += arr[i];
+
+	}
+	return shiftStr;
+}
+
