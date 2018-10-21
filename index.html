@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <title>Cryptography</title>
     <script src="main.js"></script>
+    <link rel="stylesheet" href="main_style.css" />
 </head>
 <body style="font-family: calibri;" onload="setup()">
 
-<div style="margin: auto; width: 50%; text-align: center">
-    <h1 style="margin-bottom: 80px;  font-size: 300%">Cryptography tools</h1>
-
-    <p><b>Input</b></p>
-    <textarea id="input" style="width: 80%; min-height: 100px; height: 15rem;"></textarea>
-    <br>
-    <button onclick="enterInput()" style="padding: 15px; border-radius: 5px; background-color: #2196F3; color: white; border: none; cursor: pointer; margin-bottom: 5%">Enter</button>
-
-    <p><b>Output</b></p>
-    <textarea id="output" style="width: 80%; min-height: 100px; height: 15rem"></textarea>
-    <br>
-    <button onclick="copyOutput()" style="padding: 15px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; cursor: pointer">Copy</button>
+<div id="control-panel-container">
+    <div id="control-panel">
+        <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
+        <div class="option option-1" onclick="execMethod('splitstr', [3])">Split String</div>
+        <div class="option option-1" onclick="execMethod('freqan')">Frequency Analysis</div>
+    </div>
 </div>
-
+<div id="flex-container" style="margin: auto; width: 50%;">
+    <textarea id="input" style="" placeholder="Enter text here..."></textarea>
+    <textarea id="output" style="" placeholder="Output will appear here..."></textarea>
+</div>
+<button onclick="copyOutput()" style="padding: 15px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; cursor: pointer; float: right; margin-right: 26%">Copy</button>
 </body>
 </html>

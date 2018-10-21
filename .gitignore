@@ -2,3 +2,4 @@ node_modules
 
 .idea/
 .next/
+*.js___jb_tmp___

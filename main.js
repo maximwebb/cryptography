@@ -2,15 +2,25 @@ var inputText = "";
 function setup() {
 	document.getElementById('input').addEventListener('keydown', function(e) {
 		if (e.keyCode === 13) {
-			enterInput();
+			execMethod();
 		}
 	});
 }
 
-
-function enterInput() {
+//Enters input text, and executes a specified command on it.
+function execMethod(command, params = []) {
 	inputText = document.getElementById('input').value;
-	let outputText = freqAnalysis(inputText);
+	let outputText = '';
+	if (command === 'freqan') {
+		outputText = freqAnalysis(inputText);
+	}
+	else if (command === 'rempunc') {
+		outputText = removePunc(inputText);
+	}
+	else if (command === 'splitstr') {
+		outputText = splitString(inputText, params[0]);
+	}
+
 	document.getElementById('output').value = outputText;
 }
 
@@ -23,7 +33,7 @@ function copyOutput() {
 
 //Removes spaces & punctuation from string
 function removePunc(str) {
-	return str.replace(/[^a-z]/g, '');
+	return (str.toLowerCase()).replace(/[^a-z]/g, '');
 }
 
 //Removes spaces & punctuation then splits string into groups of n.
@@ -62,6 +72,14 @@ function freqAnalysis(str) {
 		}
 	}
 	outputArr.sort( (a, b) => b[1] - a[1]);
-	console.log(outputArr);
-	return output;
+	return printFreqArr(outputArr);
+}
+
+//Returns frequency analysis array as a string
+function printFreqArr(arr) {
+	let str = '';
+	for (i = 0; i < arr.length; i++) {
+		str += arr[i][0] + ": " + arr[i][1] + "% \n";
+	}
+	return str;
 }
