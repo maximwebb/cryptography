@@ -5,16 +5,36 @@
     <title>Cryptography</title>
     <script src="main.js"></script>
     <link rel="stylesheet" href="main_style.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether-drop/1.4.2/css/drop-theme-arrows.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether-drop/1.4.2/js/drop.min.js"></script>
 </head>
 <body style="font-family: calibri;" onload="setup()">
 
 <div id="control-panel-container">
     <div id="control-panel">
         <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
-        <div class="option option-1" onclick="execMethod('splitstr', [3])">Split String</div>
+        <div class="dropdown" style="margin-right: 0">
+            <div class="option option-1" id="dropdown-split" style="margin-right: 0">Split (3)</div>
+            <div class="dropdown-content">
+                <div onclick="changeDropdown('split', 1)">1</div>
+                <div onclick="changeDropdown('split', 2)">2</div>
+                <div onclick="changeDropdown('split', 3)">3</div>
+                <div onclick="changeDropdown('split', 4)">4</div>
+                <div onclick="changeDropdown('split', 5)">5</div>
+                <div onclick="changeDropdown('split', 6)">6</div>
+                <div onclick="changeDropdown('split', 7)">7</div>
+                <div onclick="changeDropdown('split', 8)">8</div>
+                <div onclick="changeDropdown('split', 9)">9</div>
+                <div onclick="changeDropdown('split', 10)">10</div>
+            </div>
+        </div>
+        <div class="option option-1" id="dropdown-split-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
         <div class="option option-1" onclick="execMethod('freqan')">Frequency Analysis</div>
     </div>
 </div>
+
 <div id="flex-container" style="margin: auto; width: 50%;">
     <textarea id="input" style="" placeholder="Enter text here..."></textarea>
     <textarea id="output" style="" placeholder="Output will appear here..."></textarea>

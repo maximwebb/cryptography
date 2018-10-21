@@ -23,9 +23,12 @@ function execMethod(command, params = []) {
 
 	document.getElementById('output').value = outputText;
 }
-//Really great function Will wrote
-function foobar() {
-	console.log("Hello World");
+
+function changeDropdown(target, val) {
+	if (target === 'split') {
+		document.getElementById('dropdown-split').innerHTML = "Split (" + val + ")";
+		document.getElementById('dropdown-split-btn').setAttribute('onclick', 'execMethod("splitstr", [' + val + '])');
+	}
 }
 
 //Copies output to clipboard
