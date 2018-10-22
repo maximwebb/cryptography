@@ -1,4 +1,5 @@
 let cryptType = 'encrypt';
+let autoFillText = true;
 
 //Attaches event handlers to various inputs
 function setup() {
@@ -20,6 +21,17 @@ function setup() {
 	document.getElementById('cshift-input').addEventListener('change', function() {
 		changeDropdown('cshift');
 	});
+
+	if (autoFillText) {
+		document.getElementById('input').value = 'Applications of matrices are found in most scientific fields. In every ' +
+			'branch of physics, including classical mechanics, optics, electromagnetism, quantum mechanics, and quantum ' +
+			'electrodynamics, they are used to study physical phenomena, such as the motion of rigid bodies. In computer' +
+			' graphics, they are used to manipulate 3D models and project them onto a 2-dimensional screen. In probability' +
+			' theory and statistics, stochastic matrices are used to describe sets of probabilities; for instance, they are' +
+			' used within the PageRank algorithm that ranks the pages in a Google search.[5] Matrix calculus generalizes ' +
+			'classical analytical notions such as derivatives and exponentials to higher dimensions. Matrices are used in ' +
+			'economics to describe systems of economic relationships.';
+	}
 }
 
 //Enters input text, and executes a specified command on it.
@@ -37,7 +49,7 @@ function execMethod(command, params = []) {
 		document.getElementById('output').value = splitString(inputText, params[0]);
 	}
 	else if (command === 'cshift') {
-		document.getElementById('output').value = caesarShift(inputText, 'encrypt', params[0]);
+		document.getElementById('output').value = caesarShift(inputText, cryptType, params[0]);
 	}
 }
 
@@ -82,7 +94,7 @@ function toggleView(view) {
 	document.getElementById(view).style.display = "block";
 }
 
-///Displays a bar chart
+//Displays a bar chart
 function barChart(data, xAxis, yAxis) {
 	xData = data.map(el => el[0]);
 	yData = data.map(el => el[1]);
