@@ -95,11 +95,16 @@ function toggleView(view) {
 }
 
 //Displays a bar chart
-function barChart(data, xAxis, yAxis) {
+function barChart(data, xAxis, yAxis, order = 'numeric') {
+	//Formats data according to parameters
+	if (order === 'alphabetic') data.sort((a, b) => a[0].charCodeAt(0) - b[0].charCodeAt(0));
+	else if (order === 'numeric') data.sort((a, b) => b[1] - a[1]);
 	xData = data.map(el => el[0]);
 	yData = data.map(el => el[1]);
+
 	var ctx = document.getElementById('outputChart').getContext('2d');
 	toggleView('graph-container');
+
 	var outputChart = new Chart(ctx, {
 		type: 'bar',
 		data: {

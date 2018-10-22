@@ -44,6 +44,14 @@ function freqAnalysis(str) {
 			count++;
 		}
 	}
+	for (i = 0; i < 26; i++) {
+		let letter = String.fromCharCode(i + 97);
+		if (!(outputArr.find( (a) => a[0] === letter) )) {
+			console.log(letter + " not found!");
+			outputArr.push([letter, 0]);
+		}
+	}
+
 	outputArr.sort( (a, b) => b[1] - a[1]);
 	return outputArr;
 }
