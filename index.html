@@ -8,26 +8,38 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="main_style.css" />
 </head>
+
 <body style="font-family: calibri;" onload="setup()">
 
 <div id="control-panel-container">
     <div id="control-panel">
+        
         <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
-        <div class="dropdown" style="margin-right: 0;">
+        
+        <div class="dropdown">
             <label for="splitstr-input" >Split string:</label>
-            <input class="option option-2" id="splitstr-input" type="number" value="3" name="splitstr-input" min="1" style="padding-top: 11px">
+            <input id="splitstr-input" type="number" value="3" name="splitstr-input" min="1">
+            <div id="splitstr-btn" onclick="execMethod('splitstr', [3])">&rarr;</div>
         </div>
-        <div class="option option-1" id="splitstr-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
+        
         <div class="option option-1" onclick="execMethod('freqan')">Frequency Analysis</div>
+        
+        <div class="dropdown">
+            <label for="caesarShift-input" >Caesar Shift:</label>
+            <input id="caesarShift-input" type="number" value="3" name="caesarShift-input" min="1" max="25">
+            <div id="caesarShift-btn" onclick="execMethod('caesarShift', [3])">&rarr;</div>
+        </div>
+
     </div>
 </div>
 
 <div id="flex-container" style="margin: auto; width: 50%;">
-    <textarea id="input" style="" placeholder="Enter text here..."></textarea>
-    <textarea id="output" style="" placeholder="Output will appear here..."></textarea>
+    <textarea id="input" placeholder="Enter text here..."></textarea>
+    <textarea id="output" placeholder="Output will appear here..."></textarea>
 </div>
-<button onclick="copyOutput()" style="padding: 15px; border-radius: 5px; background-color: #4CAF50; color: white; border: none; cursor: pointer; float: right; margin-right: 26%">Copy</button>
+<button id="copy-btn" onclick="copyOutput()">Copy</button>
 
 <canvas id="outputChart" width="800" height="600"></canvas>
+
 </body>
 </html>

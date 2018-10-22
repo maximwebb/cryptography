@@ -5,10 +5,18 @@ function setup() {
 	document.getElementById("splitstr-input").addEventListener('wheel', function(e) {
 		scrollDropdown("splitstr", e);
 	});
-
 	//On change to the 'split-input' call changeDropdown with target 'split'
 	document.getElementById('splitstr-input').addEventListener('change', function() {
 		changeDropdown('splitstr');
+	});
+
+	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
+	document.getElementById("caesarShift-input").addEventListener('wheel', function(e) {
+		scrollDropdown("caesarShift", e);
+	});
+	//On change to the 'split-input' call changeDropdown with target 'split'
+	document.getElementById('caesarShift-input').addEventListener('change', function() {
+		changeDropdown('caesarShift');
 	});
 }
 
@@ -25,6 +33,9 @@ function execMethod(command, params = []) {
 	else if (command === 'splitstr') {
 		outputText = splitString(inputText, params[0]);
 	}
+	else if (command === 'caesarShift') {
+		outputText = caesarShift(inputText, params[0]);
+	}
 
 	document.getElementById('output').value = outputText;
 }
@@ -37,7 +48,7 @@ function changeDropdown(target) {
 //Fires on scroll event, and checks if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and changes accordingly.
 function scrollDropdown(target, e) {
 	let length = parseInt(document.getElementById(target + "-input").value);
-	if (e.deltaY < 0) {
+	if (e.deltaY < 0 && length <= document.getElementById(target + "-btn").max ) {
 		document.getElementById(target + "-btn").setAttribute("onclick", 'execMethod(\'' + target + '\', [' + (length+1) + '])');
 	}
 	else if (e.deltaY > 0 && length >= document.getElementById(target + "-btn").min ) {

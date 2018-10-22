@@ -58,7 +58,7 @@ function printFreqArr(arr) {
 }
 
 //Performs a Caesar shift encryption/decryption
-function caesarShift(str, type, rot) {
+function caesarShift(str, rot, type='encrypt') {
 	if (type === 'decrypt') rot = 26 - rot;
 	let arr = str.split('');
 	let shiftStr = '';
