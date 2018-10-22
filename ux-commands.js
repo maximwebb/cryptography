@@ -25,19 +25,18 @@ function execMethod(command, params = []) {
 	inputText = document.getElementById('input').value;
 	let outputText = '';
 	if (command === 'freqan') {
-		outputText = printFreqArr(freqAnalysis(inputText));
+		if (document.getElementById('graph-checkbox').checked) barChart(freqAnalysis(inputText), '', 'Frequency %');
+		else document.getElementById('output').value = printFreqArr(freqAnalysis(inputText));
 	}
 	else if (command === 'rempunc') {
-		outputText = removePunc(inputText);
+		document.getElementById('output').value = removePunc(inputText);
 	}
 	else if (command === 'splitstr') {
-		outputText = splitString(inputText, params[0]);
+		document.getElementById('output').value = splitString(inputText, params[0]);
 	}
 	else if (command === 'cshift') {
-		outputText = caesarShift(inputText, 'encrypt', params[0]);
+		document.getElementById('output').value = caesarShift(inputText, 'encrypt', params[0]);
 	}
-
-	document.getElementById('output').value = outputText;
 }
 
 //Change onclick attribute of button, such that it passes the correct parameter value to the corresponding function
@@ -63,32 +62,27 @@ function copyOutput() {
 	document.execCommand('copy');
 }
 
+//Changes between various views.
+function toggleView(view) {
+	document.querySelectorAll('.container').forEach((cont) => cont.style.display = "none");
+	document.getElementById(view).style.display = "block";
+}
+
 ///Displays a bar chart
 function barChart(data, xAxis, yAxis) {
+	xData = data.map(el => el[0]);
+	yData = data.map(el => el[1]);
 	var ctx = document.getElementById('outputChart').getContext('2d');
+	toggleView('graph-container');
 	var outputChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
-			labels: ["A", "B", "C", "D", "E"],
+			labels: xData,
 			datasets: [{
 				label: yAxis,
-				data: data,
-				backgroundColor: [
-					'rgba(255, 99, 132, 0.2)',
-					'rgba(54, 162, 235, 0.2)',
-					'rgba(255, 206, 86, 0.2)',
-					'rgba(75, 192, 192, 0.2)',
-					'rgba(153, 102, 255, 0.2)',
-					'rgba(255, 159, 64, 0.2)'
-				],
-				borderColor: [
-					'rgba(255,99,132,1)',
-					'rgba(54, 162, 235, 1)',
-					'rgba(255, 206, 86, 1)',
-					'rgba(75, 192, 192, 1)',
-					'rgba(153, 102, 255, 1)',
-					'rgba(255, 159, 64, 1)'
-				],
+				data: yData,
+				backgroundColor: 'rgba(255, 99, 132, 0.8)',
+				borderColor: 'rgba(255,99,132,1)',
 				borderWidth: 1
 			}]
 		},
