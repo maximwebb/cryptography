@@ -45,7 +45,7 @@ function freqAnalysis(str) {
 		}
 	}
 	outputArr.sort( (a, b) => b[1] - a[1]);
-	return printFreqArr(outputArr);
+	return outputArr;
 }
 
 //Returns frequency analysis array as a string
@@ -91,4 +91,18 @@ function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
 		else outputStr += strArr[i];
 	}
 	return outputStr;
+}
+
+//Determines the length of gaps between repeated substrings of length n (Kasiski analysis).
+function substringGaps(str, gap_length) {
+	let gapsArr = [];
+	for (let i = 0; i < str.length - gap_length; i++) {
+		let substr = str.substring(i, i + gap_length);
+		for (let j = i + gap_length - 1; j < str.length - gap_length; j++) {
+			if (str.substring(j, j + gap_length) === substr) {
+				gapsArr.push(j - i);
+			}
+		}
+	}
+	return gapsArr.sort((a, b) => (a - b));
 }

@@ -17,7 +17,7 @@ function execMethod(command, params = []) {
 	inputText = document.getElementById('input').value;
 	let outputText = '';
 	if (command === 'freqan') {
-		outputText = freqAnalysis(inputText);
+		outputText = printFreqArr(freqAnalysis(inputText));
 	}
 	else if (command === 'rempunc') {
 		outputText = removePunc(inputText);
@@ -50,4 +50,15 @@ function copyOutput() {
 	let outputText = document.getElementById('output');
 	outputText.select();
 	document.execCommand('copy');
+}
+
+//Displays a bar chart
+function barChart(data, xAxis, yAxis) {
+	var ctx = document.getElementById('outputChart').getContext('2d');
+	var outputChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+
+		}
+	});
 }
