@@ -87,6 +87,11 @@
     border-color:  #2e96cb;
 }
 
+.dropdown div:hover {
+    background-color: #2e96cb;
+    color: #ffffff;
+}
+
 body {
     margin: 0;
 }
