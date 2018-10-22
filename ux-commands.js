@@ -1,3 +1,5 @@
+let cryptType = 'encrypt';
+
 //Attaches event handlers to various inputs
 function setup() {
 
@@ -34,7 +36,7 @@ function execMethod(command, params = []) {
 		outputText = splitString(inputText, params[0]);
 	}
 	else if (command === 'cshift') {
-		outputText = caesarShift(inputText, 'encrypt', params[0]);
+		outputText = caesarShift(inputText, cryptType, params[0]);
 	}
 
 	document.getElementById('output').value = outputText;
@@ -53,6 +55,18 @@ function scrollDropdown(target, e) {
 	}
 	else if (e.deltaY > 0 && length >= document.getElementById(target + "-btn").min ) {
 		document.getElementById(target + "-btn").setAttribute('onclick', 'execMethod(\'' + target + '\', [' + (length-1) + '])');
+	}
+}
+
+//Changes the type (en/decrypt) as well as the image when the en/decrypt toggle image is clicked
+function flipCryptType() {
+	if (cryptType === 'encrypt') {
+		document.getElementById("cryptTypeImg").setAttribute('src', './images/unlocked.png');
+		cryptType = 'decrypt';
+	}
+	else if (cryptType === 'decrypt') {
+		document.getElementById("cryptTypeImg").setAttribute('src', './images/locked.png');
+		cryptType = 'encrypt';
 	}
 }
 

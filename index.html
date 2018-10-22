@@ -12,6 +12,11 @@
 <body style="font-family: calibri;" onload="setup()">
 
 <div id="control-panel-container">
+
+    <div id="crypt-direction">
+        <img id="cryptTypeImg" src="./images/locked.png" onclick="flipCryptType()">
+    </div>
+
     <div id="control-panel">
         
         <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
@@ -31,12 +36,13 @@
         </div>
 
     </div>
+
 </div>
 
 <div id="flex-container" style="margin: auto; width: 50%;">
     <textarea id="input" style="order: 2" placeholder="Enter text here..."></textarea>
     <textarea id="output" style="order: 1" placeholder="Output will appear here..."></textarea>
-    <button id="copy-btn" onclick="copyOutput()" style="">Copy</button>
+    <button id="copy-btn" onclick="copyOutput()">Copy</button>
 </div>
 
 <div style="margin: auto; width: 50%;">
