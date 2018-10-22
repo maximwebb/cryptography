@@ -4,11 +4,8 @@
     <meta charset="UTF-8">
     <title>Cryptography</title>
     <script src="main.js"></script>
+    <script src="ux-commands.js"></script>
     <link rel="stylesheet" href="main_style.css" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tether-drop/1.4.2/css/drop-theme-arrows.css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.4/js/tether.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether-drop/1.4.2/js/drop.min.js"></script>
 </head>
 <body style="font-family: calibri;" onload="setup()">
 
@@ -16,10 +13,10 @@
     <div id="control-panel">
         <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
         <div class="dropdown" style="margin-right: 0;">
-            <label for="split-input" >Split string:</label>
-            <input class="option option-2" id="split-input" type="number" value="3" name="split-input" min="1" style="padding-top: 11px">
+            <label for="splitstr-input" >Split string:</label>
+            <input class="option option-2" id="splitstr-input" type="number" value="3" name="splitstr-input" min="1" style="padding-top: 11px">
         </div>
-        <div class="option option-1" id="split-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
+        <div class="option option-1" id="splitstr-btn" onclick="execMethod('splitstr', [3])" style="margin-left: 0">&rarr;</div>
         <div class="option option-1" onclick="execMethod('freqan')">Frequency Analysis</div>
     </div>
 </div>

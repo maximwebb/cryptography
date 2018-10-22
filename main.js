@@ -1,61 +1,4 @@
-let inputText = '';
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
-
-function setup() {
-
-	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
-	document.getElementById("split-input").addEventListener('wheel', function(e) {
-		scrollDropdown("split", e);
-	});
-	
-	//On change to the 'split-input' call changeDropdown with target 'split'
-	document.getElementById('split-input').addEventListener('change', function() {
-		changeDropdown('split');
-	});
-}
-
-//Enters input text, and executes a specified command on it.
-function execMethod(command, params = []) {
-	inputText = document.getElementById('input').value;
-	let outputText = '';
-	if (command === 'freqan') {
-		outputText = freqAnalysis(inputText);
-	}
-	else if (command === 'rempunc') {
-		outputText = removePunc(inputText);
-	}
-	else if (command === 'splitstr') {
-		outputText = splitString(inputText, params[0]);
-	}
-
-	document.getElementById('output').value = outputText;
-}
-
-//updates corresponding function parameters for inputs that can be altered indirectly
-function changeDropdown(target) {
-	//get split-btn element and change the contents of onclick to have the value of the split-input field (that might have been altered by buttons or scroll)
-	if (target === 'split') {
-		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod("splitstr", [' + document.getElementById(target + '-input').value + '])');
-	}
-}
-
-//using the passed through scroll event, check if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and increment/decrement (unless at min value)
-function scrollDropdown(target, e) {
-	let length = document.getElementById(target + "-input").value
-	if (e.deltaY < 0) {
-		document.getElementById(target + "-btn").setAttribute("onclick", "execMethod('" + target + "str', [" + length+1 + "])");
-	}
-	else if (e.deltaY > 0 && length >= document.getElementById(target + "-btn").min ) {
-		document.getElementById(target + "-btn").setAttribute("onclick", "execMethod('" + target + "str', [" + length-1 + "])");
-	}
-}
-
-//Copies output to clipboard
-function copyOutput() {
-	outputText = document.getElementById('output');
-	outputText.select();
-	document.execCommand('copy');
-}
 
 //Removes spaces & punctuation from string
 function removePunc(str) {
@@ -130,7 +73,7 @@ function caesarShift(str, type, rot) {
 }
 
 //Performs a monoalphabetic substitution encryption/decryption
-function monoSubstit(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
+function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
 	let encrypt = (type === 'encrypt');
 	let strArr = str.split('');
 	let outputStr = '';
