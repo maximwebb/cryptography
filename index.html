@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="main_style.css" />
 </head>
 
-<body style="font-family: calibri;" onload="setup()">
+<body style="font-family: calibri;" onload="setup();">
 
 <div id="control-panel-container">
 
@@ -35,18 +35,25 @@
             <div id="cshift-btn" onclick="execMethod('cshift', [3])">&rarr;</div>
         </div>
 
+        <div>
+            <div class="option-1 option">
+                Graph<input type="checkbox" id="graph-checkbox" style="padding: 10px">
+            </div>
+        </div>
+
     </div>
 
 </div>
 
-<div id="flex-container" style="margin: auto; width: 50%;">
+<div class="container" id="flex-container-main" style="margin: auto; width: 50%;">
     <textarea id="input" style="order: 2" placeholder="Enter text here..."></textarea>
     <textarea id="output" style="order: 1" placeholder="Output will appear here..."></textarea>
-    <button id="copy-btn" onclick="copyOutput()">Copy</button>
+    <button class="btn" id="copy-btn" onclick="copyOutput()">Copy</button>
 </div>
 
-<div style="margin: auto; width: 50%;">
-    <canvas id="outputChart" width="800" height="600"></canvas>
+<div class="container" id="graph-container" style="margin: auto; width: 50%;">
+    <button class="btn" id="return-btn" onclick="toggleView('flex-container-main')">&larr; Go back</button>
+    <canvas id="outputChart" width="800" height="400" style="margin-left: 2vw"></canvas>
 </div>
 
 </body>
