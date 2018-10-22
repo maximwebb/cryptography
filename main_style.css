@@ -87,17 +87,6 @@
     border-color:  #2e96cb;
 }
 
-#copy-btn {
-    padding: 15px; 
-    border-radius: 5px; 
-    background-color: #4CAF50; 
-    color: white; 
-    border: none; 
-    cursor: pointer; 
-    float: right; 
-    margin-right: 26%
-}
-
 body {
     margin: 0;
 }
