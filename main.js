@@ -28,7 +28,7 @@ function freqAnalysis(str) {
 	let count = 0;
 	let output = "";
 	let outputArr = [];
-	for (i = 0; i < arr.length; i++) {
+	for (i = 0; i < arr.length + 1; i++) {
 		if (arr[i] !== pos) {
 			outputArr.push([]);
 			outputArr[outputArr.length - 1] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
@@ -58,7 +58,7 @@ function printFreqArr(arr) {
 }
 
 //Performs a Caesar shift encryption/decryption
-function caesarShift(str, rot, type='encrypt') {
+function caesarShift(str, type='encrypt', rot) {
 	if (type === 'decrypt') rot = 26 - rot;
 	let arr = str.split('');
 	let shiftStr = '';

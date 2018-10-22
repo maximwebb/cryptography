@@ -11,12 +11,12 @@ function setup() {
 	});
 
 	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
-	document.getElementById("caesarShift-input").addEventListener('wheel', function(e) {
-		scrollDropdown("caesarShift", e);
+	document.getElementById("cshift-input").addEventListener('wheel', function(e) {
+		scrollDropdown("cshift", e);
 	});
 	//On change to the 'split-input' call changeDropdown with target 'split'
-	document.getElementById('caesarShift-input').addEventListener('change', function() {
-		changeDropdown('caesarShift');
+	document.getElementById('cshift-input').addEventListener('change', function() {
+		changeDropdown('cshift');
 	});
 }
 
@@ -33,7 +33,7 @@ function execMethod(command, params = []) {
 	else if (command === 'splitstr') {
 		outputText = splitString(inputText, params[0]);
 	}
-	else if (command === 'caesarShift') {
+	else if (command === 'cshift') {
 		outputText = caesarShift(inputText, 'encrypt', params[0]);
 	}
 
