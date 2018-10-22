@@ -1,13 +1,26 @@
 #flex-container {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    align-content: flex-start;
     height: 500px;
 }
 
 #input, #output {
-    flex-grow: 1;
     margin: 10px;
+    width: 45%;
+    height: 400px;
+}
+#copy-btn {
+    margin-right: 2vw;
+    padding: 15px;
+
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    order: 3;
 }
 
 #control-panel-container {
