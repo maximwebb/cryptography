@@ -69,10 +69,10 @@ function printFreqArr(arr) {
 function caesarShift(str, type='encrypt', rot) {
 	if (type === 'decrypt') rot = 26 - rot;
 	let shiftStr = '';
-	for (i = 0; i < arr.length; i++) {
+	for (i = 0; i < str.length; i++) {
 		let charNum = str.charCodeAt(i);
-		if (charNum >= 97 && charNum <= 122) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 97 + rot) % 26) + 97);
-		else if (charNum >= 65 && charNum <= 90) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 65 + rot) % 26) + 65);
+		if (charNum >= 97 && charNum <= 122) shiftStr += String.fromCharCode(((str.charCodeAt(i) - 97 + rot) % 26) + 97);
+		else if (charNum >= 65 && charNum <= 90) shiftStr += String.fromCharCode(((str.charCodeAt(i) - 65 + rot) % 26) + 65);
 		else shiftStr += str.slice(i, i + 1);
 
 	}
