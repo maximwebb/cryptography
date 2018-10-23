@@ -65,22 +65,21 @@ function printFreqArr(arr) {
 	return str;
 }
 
-//Performs a Caesar shift encryption/decryption
+//Performs a Caesar shift encryption/decryption.
 function caesarShift(str, type='encrypt', rot) {
 	if (type === 'decrypt') rot = 26 - rot;
-	let arr = str.split('');
 	let shiftStr = '';
 	for (i = 0; i < arr.length; i++) {
-		let charNum = arr[i].charCodeAt(0);
+		let charNum = str.charCodeAt(i);
 		if (charNum >= 97 && charNum <= 122) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 97 + rot) % 26) + 97);
 		else if (charNum >= 65 && charNum <= 90) shiftStr += String.fromCharCode(((arr[i].charCodeAt(0) - 65 + rot) % 26) + 65);
-		else shiftStr += arr[i];
+		else shiftStr += str.slice(i, i + 1);
 
 	}
 	return shiftStr;
 }
 
-//Performs a monoalphabetic substitution encryption/decryption
+//Performs a monoalphabetic substitution encryption/decryption.
 function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
 	let encrypt = (type === 'encrypt');
 	let strArr = str.split('');
@@ -93,24 +92,52 @@ function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
 	}
 
 	for (i = 0; i < strArr.length; i++) {
-		let charNum = strArr[i].charCodeAt(0);
+		let charNum = str.charCodeAt(i);
 		if (charNum >= 97 && charNum <= 122) outputStr += keyArr[charNum - 97][+encrypt];
 		else if (charNum >= 65 && charNum <= 90) outputStr += (keyArr[charNum - 65][+encrypt]).toUpperCase();
-		else outputStr += strArr[i];
+		else outputStr += str.slice(i, i + 1);
 	}
 	return outputStr;
 }
 
 //Determines the length of gaps between repeated substrings of length n (Kasiski analysis).
-function substringGaps(str, gap_length) {
+function substringGaps(str, substr_length) {
 	let gapsArr = [];
-	for (let i = 0; i < str.length - gap_length; i++) {
-		let substr = str.substring(i, i + gap_length);
-		for (let j = i + gap_length - 1; j < str.length - gap_length; j++) {
-			if (str.substring(j, j + gap_length) === substr) {
+	for (let i = 0; i < str.length - substr_length; i++) {
+		let substr = str.substring(i, i + substr_length);
+		for (let j = i + substr_length - 1; j < str.length - substr_length; j++) {
+			if (str.substring(j, j + substr_length) === substr) {
 				gapsArr.push(j - i);
 			}
 		}
 	}
 	return gapsArr.sort((a, b) => (a - b));
+}
+
+//Performs a Viginere encryption/decryption.
+function viginere(str, type, key) {
+	let keyArr = [];
+	let outputStr = '';
+	let count = 0;
+
+	//Sets up array of shifted alphabets.
+	for (let i = 0; i < key.length; i++) {
+		keyArr.push(caesarShift(alphabet, type, (key.charCodeAt(i)-97)));
+	}
+
+	for (let i = 0; i < str.length; i++) {
+		let charNum = str.charCodeAt(i);
+		if (charNum >= 97 && charNum <= 122) {
+			outputStr += keyArr[count % key.length][charNum - 97];
+			count++;
+		}
+		else if (charNum >= 65 && charNum <= 90) {
+			outputStr += keyArr[count % key.length][charNum - 65];
+			count++;
+		}
+		else {
+			outputStr += str.slice(i, i + 1);
+		}
+	}
+	return outputStr;
 }

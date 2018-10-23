@@ -68,9 +68,9 @@ printFreqArr(freqAnalysis("There are twenty-six letters in the English Language.
 //"e: 20.45%, t: 13.64%, n: 9.09%, a: 6.82%, g: 6.82%, h: 6.82%, ..."
 ```
 
-substringGaps(str, gap_length)
+substringGaps(str, substr_length)
 ------------------------------
-Searches string `str` for substrings of length `gap_length`, and returns a sorted array of all the distances between repeated substrings.
+Searches string `str` for substrings of length `substr_length`, and returns a sorted array of all the distances between repeated substrings.
 
 Example:
 ```javascript
