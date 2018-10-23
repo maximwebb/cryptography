@@ -1,7 +1,13 @@
+.container {
+    margin: auto; 
+    width: 50%;
+}
+
 #flex-container-main {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     flex-wrap: wrap;
+    justify-content: space-between;
     align-content: flex-start;
     height: 500px;
 }
@@ -13,8 +19,7 @@
 }
 
 #copy-btn {
-    margin-right: 2vw;
-    order: 3;
+    margin: auto 2vw auto auto;
 }
 
 #graph-container {
