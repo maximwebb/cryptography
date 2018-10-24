@@ -1,5 +1,6 @@
-let cryptType = 'encrypt';
 let autoFillText = true;
+let cryptType = 'encrypt';
+let outputType = 'textbox';
 
 //Attaches event handlers to various inputs
 function setup() {
@@ -8,23 +9,23 @@ function setup() {
 	document.getElementById("splitstr-input").addEventListener('wheel', function(e) {
 		scrollDropdown("splitstr", e);
 	});
-	//On change to the 'split-input' call changeDropdown with target 'split'
+	//On change to the 'splitstr-input' call updateDropdown with target 'split'
 	document.getElementById('splitstr-input').addEventListener('change', function() {
-		changeDropdown('splitstr');
+		updateDropdown('splitstr');
 	});
 
 	document.getElementById("cshift-input").addEventListener('wheel', function(e) {
 		scrollDropdown("cshift", e);
 	});
 	document.getElementById('cshift-input').addEventListener('change', function() {
-		changeDropdown('cshift');
+		updateDropdown('cshift');
 	});
 
 	document.getElementById("ngram-input").addEventListener('wheel', function(e) {
 		scrollDropdown("ngram", e);
 	});
 	document.getElementById('ngram-input').addEventListener('change', function() {
-		changeDropdown('ngram');
+		updateDropdown('ngram');
 	});
 
 	if (autoFillText) {
@@ -48,7 +49,7 @@ function execMethod(command, params = []) {
 			params[1] = (params[0] === 1) ? 26 : 50;
 		}
 
-		if (document.getElementById('graph-checkbox').checked) barChart(nGramAnalysis(inputText, params[0], params[1]), '', 'Frequency %');
+		if (outputType === 'graph') barChart(nGramAnalysis(inputText, params[0], params[1]), '', 'Frequency %');
 		else document.getElementById('output').value = printFreqArr(nGramAnalysis(inputText, params[0]));
 	}
 	else if (command === 'rempunc') {
@@ -63,11 +64,11 @@ function execMethod(command, params = []) {
 }
 
 //Change onclick attribute of button, such that it passes the correct parameter value to the corresponding function
-function changeDropdown(target) {
+function updateDropdown(target) {
 	document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [' + document.getElementById(target + '-input').value + '])');
 }
 
-//Fires on scroll event, and checks if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and changes accordingly.
+//(On scroll event) checks if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and changes execMethod params accordingly.
 function scrollDropdown(target, e) {
 	let length = parseInt(document.getElementById(target + "-input").value);
 	if (e.deltaY < 0 && length <= document.getElementById(target + "-btn").max ) {
@@ -87,6 +88,18 @@ function flipCryptType() {
 	else if (cryptType === 'decrypt') {
 		document.getElementById("cryptTypeImg").setAttribute('src', './images/locked.png');
 		cryptType = 'encrypt';
+	}
+}
+
+//Changes the output type (text/graph) as well as the image when the outputType image is clicked
+function flipOutputType() {
+	if (outputType === 'textbox') {
+		document.getElementById("outputTypeImg").setAttribute('src', './images/graph.png');
+		outputType = 'graph';
+	}
+	else if (outputType === 'graph') {
+		document.getElementById("outputTypeImg").setAttribute('src', './images/textbox.png');
+		outputType = 'textbox';
 	}
 }
 

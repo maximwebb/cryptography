@@ -28,13 +28,11 @@
             <div id="splitstr-btn" onclick="execMethod('splitstr', [3])">&rarr;</div>
         </div>
         
-        <!--<div class="option option-1" onclick="execMethod('ngram', [1])">N-Gram Analysis</div>-->
         <div class="dropdown">
             <label for="ngram-input" >N-Gram Analysis:</label>
             <input id="ngram-input" type="number" value="1" name="ngram-input" min="1" max="50">
             <div id="ngram-btn" onclick="execMethod('ngram', [1])">&rarr;</div>
         </div>
-
 
         <div class="dropdown">
             <label for="cshift-input" >Caesar Shift:</label>
@@ -42,10 +40,10 @@
             <div id="cshift-btn" onclick="execMethod('cshift', [3])">&rarr;</div>
         </div>
 
-        <div class="option-1 option">
-            Graph<input type="checkbox" id="graph-checkbox" style="padding: 10px">
-        </div>
+    </div>
 
+    <div id="output-type">
+        <img id="outputTypeImg" src="./images/textbox.png" onclick="flipOutputType()">
     </div>
 
 </div>
