@@ -200,7 +200,7 @@ function findViginereKeyLength(str) {
 			}
 		}
 		//Best results seem to come from √keylength * number of gaps divisible by key length.
-		resArr[i - 2][2] = Math.sqrt(resArr[i - 2][0]) * resArr[i - 2][1];
+		resArr[i - 2][2] = Math.pow(resArr[i - 2][0], 0.25) * resArr[i - 2][1];
 		if (resArr[i - 2][2] > resArr[maxCount - 2][2]) {
 			maxCount = resArr[i - 2][0];
 		}
