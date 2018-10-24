@@ -13,13 +13,18 @@ function setup() {
 		changeDropdown('splitstr');
 	});
 
-	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
 	document.getElementById("cshift-input").addEventListener('wheel', function(e) {
 		scrollDropdown("cshift", e);
 	});
-	//On change to the 'split-input' call changeDropdown with target 'split'
 	document.getElementById('cshift-input').addEventListener('change', function() {
 		changeDropdown('cshift');
+	});
+
+	document.getElementById("ngram-input").addEventListener('wheel', function(e) {
+		scrollDropdown("ngram", e);
+	});
+	document.getElementById('ngram-input').addEventListener('change', function() {
+		changeDropdown('ngram');
 	});
 
 	if (autoFillText) {
@@ -38,9 +43,13 @@ function setup() {
 function execMethod(command, params = []) {
 	inputText = document.getElementById('input').value;
 	let outputText = '';
-	if (command === 'freqan') {
-		if (document.getElementById('graph-checkbox').checked) barChart(freqAnalysis(inputText), '', 'Frequency %');
-		else document.getElementById('output').value = printFreqArr(freqAnalysis(inputText));
+	if (command === 'ngram') {
+		if (!params[1]) {
+			params[1] = (params[0] === 1) ? 26 : 50;
+		}
+
+		if (document.getElementById('graph-checkbox').checked) barChart(nGramAnalysis(inputText, params[0], params[1]), '', 'Frequency %');
+		else document.getElementById('output').value = printFreqArr(nGramAnalysis(inputText, params[0]));
 	}
 	else if (command === 'rempunc') {
 		document.getElementById('output').value = removePunc(inputText);
