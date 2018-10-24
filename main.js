@@ -44,6 +44,8 @@ function freqAnalysis(str) {
 			count++;
 		}
 	}
+
+	//Adds in missing frequencies
 	for (i = 0; i < 26; i++) {
 		let letter = String.fromCharCode(i + 97);
 		if (!(outputArr.find( (a) => a[0] === letter) )) {
@@ -54,6 +56,39 @@ function freqAnalysis(str) {
 
 	outputArr.sort( (a, b) => b[1] - a[1]);
 	return outputArr;
+}
+
+//Performs an n-gram analysis on a string, for n = len, returning a specified number of results.
+function nGramAnalysis(str, len, outputNum = 50) {
+	let str2 = removePunc(str);
+	let substrArr = [];
+	let outputArr = [];
+	let count = 1;
+
+	//Create ordered array of substrings
+	for (let i = 0; i < str2.length - len + 1; i++) {
+		substrArr.push(str2.substr(i, len));
+	}
+	substrArr.sort();
+
+	let pos = substrArr[0];
+	for (let i = 1; i <= substrArr.length; i++) {
+		if (pos !== substrArr[i]) {
+			pos = substrArr[i];
+			outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+			count = 1;
+		}
+		else if (i === substrArr.length) {
+			pos = substrArr[i];
+			outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+		}
+		else {
+			count++;
+		}
+	}
+	outputArr.sort( (a, b) => b[1] - a[1]);
+
+	return outputArr.splice(0, 50);
 }
 
 //Returns frequency analysis array as a string
@@ -77,41 +112,6 @@ function caesarShift(str, type='encrypt', rot) {
 
 	}
 	return shiftStr;
-}
-
-//Performs a monoalphabetic substitution encryption/decryption.
-function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
-	let encrypt = (type === 'encrypt');
-	let strArr = str.split('');
-	let outputStr = '';
-
-	let keyArr = new Array(26).fill([]);
-	keyArr = keyArr.map((x, index) => [alphabet.charAt(index), key.charAt(index)]);
-	if (type === 'decrypt') {
-		keyArr.sort((a, b) => a[1].charCodeAt(0) - b[1].charCodeAt(0));
-	}
-
-	for (i = 0; i < strArr.length; i++) {
-		let charNum = str.charCodeAt(i);
-		if (charNum >= 97 && charNum <= 122) outputStr += keyArr[charNum - 97][+encrypt];
-		else if (charNum >= 65 && charNum <= 90) outputStr += (keyArr[charNum - 65][+encrypt]).toUpperCase();
-		else outputStr += str.slice(i, i + 1);
-	}
-	return outputStr;
-}
-
-//Determines the length of gaps between repeated substrings of length n (Kasiski analysis).
-function substringGaps(str, substr_length) {
-	let gapsArr = [];
-	for (let i = 0; i < str.length - substr_length; i++) {
-		let substr = str.substring(i, i + substr_length);
-		for (let j = i + substr_length - 1; j < str.length - substr_length; j++) {
-			if (str.substring(j, j + substr_length) === substr) {
-				gapsArr.push(j - i);
-			}
-		}
-	}
-	return gapsArr.sort((a, b) => (a - b));
 }
 
 //Performs a Viginere encryption/decryption.
@@ -141,3 +141,40 @@ function viginere(str, type, key) {
 	}
 	return outputStr;
 }
+
+//Performs a monoalphabetic substitution encryption/decryption.
+function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
+	let encrypt = (type === 'encrypt');
+	let strArr = str.split('');
+	let outputStr = '';
+
+	let keyArr = new Array(26).fill([]);
+	keyArr = keyArr.map((x, index) => [alphabet.charAt(index), key.charAt(index)]);
+	if (type === 'decrypt') {
+		keyArr.sort((a, b) => a[1].charCodeAt(0) - b[1].charCodeAt(0));
+	}
+
+	for (i = 0; i < strArr.length; i++) {
+		let charNum = str.charCodeAt(i);
+		if (charNum >= 97 && charNum <= 122) outputStr += keyArr[charNum - 97][+encrypt];
+		else if (charNum >= 65 && charNum <= 90) outputStr += (keyArr[charNum - 65][+encrypt]).toUpperCase();
+		else outputStr += str.slice(i, i + 1);
+	}
+	return outputStr;
+}
+
+//Determines the length of gaps between repeated substrings of length n (Kasiski analysis).
+function substringGaps(str, substr_length) {
+	let rpStr = removePunc(str);
+	let gapsArr = [];
+	for (let i = 0; i < rpStr.length - substr_length; i++) {
+		let substr = rpStr.substring(i, i + substr_length);
+		for (let j = i + substr_length - 1; j < rpStr.length - substr_length; j++) {
+			if (rpStr.substring(j, j + substr_length) === substr) {
+				gapsArr.push(j - i);
+			}
+		}
+	}
+	return gapsArr.sort((a, b) => (a - b));
+}
+
