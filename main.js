@@ -59,17 +59,26 @@ function freqAnalysis(str) {
 }
 
 //Performs an n-gram analysis on a string, for n = len, returning a specified number of results.
-function nGramAnalysis(str, len, outputNum = 50) {
-	let str2 = removePunc(str);
+function nGramAnalysis(input, len, outputNum = 50, string = true) {
+
 	let substrArr = [];
 	let outputArr = [];
 	let count = 1;
 
-	//Create ordered array of substrings
-	for (let i = 0; i < str2.length - len + 1; i++) {
-		substrArr.push(str2.substr(i, len));
+	//Allows for input as an array or a string (ie. array of numbers).
+	if (string) {
+		let str2 = removePunc(input);
+
+		//Create ordered array of substrings
+		for (let i = 0; i < str2.length - len + 1; i++) {
+			substrArr.push(str2.substr(i, len));
+		}
+		substrArr.sort();
 	}
-	substrArr.sort();
+	else {
+		substrArr = input;
+	}
+
 
 	let pos = substrArr[0];
 	for (let i = 1; i <= substrArr.length; i++) {
@@ -178,3 +187,24 @@ function substringGaps(str, substr_length) {
 	return gapsArr.sort((a, b) => (a - b));
 }
 
+//Determines length of key word in Viginere ciphers
+function findViginereKeyLength(str) {
+	let keyArr = substringGaps(str, 3);
+	let resArr = [];
+	let maxCount = 2;
+	for (let i = 2; i < 16; i++) {
+		resArr.push([i, 0, 0]);
+		for (let j = 0; j < keyArr.length; j++) {
+			if (!(keyArr[j] % i)) {
+				resArr[i - 2][1]++;
+			}
+		}
+		//Best results seem to come from √keylength * number of gaps divisible by key length.
+		resArr[i - 2][2] = Math.sqrt(resArr[i - 2][0]) * resArr[i - 2][1];
+		if (resArr[i - 2][2] > resArr[maxCount - 2][2]) {
+			maxCount = resArr[i - 2][0];
+		}
+	}
+	//console.log(resArr[maxCount][1]);
+	return maxCount;
+}
