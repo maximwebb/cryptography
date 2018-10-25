@@ -1,4 +1,34 @@
 let alphabet = 'abcdefghijklmnopqrstuvwxyz';
+let engFreqAnalysis = [
+	['a', 8.167],
+	['b', 1.492],
+	['c', 2.782],
+	['d', 4.253],
+	['e', 12.702],
+	['f', 2.228],
+	['g', 2.015],
+	['h', 6.094],
+	['i', 6.966],
+	['j', 0.153],
+	['k', 0.772],
+	['l', 4.025],
+	['m', 2.406],
+	['n', 6.749],
+	['o', 7.507],
+	['p', 1.929],
+	['q', 0.095],
+	['r', 5.987],
+	['s', 6.327],
+	['t', 9.056],
+	['u', 2.758],
+	['v', 0.978],
+	['w', 2.36],
+	['x', 0.15],
+	['y', 1.974],
+	['z', 0.074]
+];
+
+
 
 //Removes spaces & punctuation from string
 function removePunc(str) {
@@ -19,6 +49,22 @@ function splitString(str, n) {
 	return arr.join('');
 }
 
+//Extracts every n-th letter, returning result as an array of strings.
+function extractStrings(str, n) {
+	str = removePunc(str);
+	let strArr = [];
+	let extractStr = '';
+
+	for (let i = 0; i < n; i++) {
+		for (let j = i; j < str.length; j+= n) {
+			extractStr += str.slice(j, j + 1);
+		}
+		strArr.push(extractStr);
+		extractStr = '';
+	}
+	return strArr;
+}
+
 //Performs a frequency analysis on a string
 function freqAnalysis(str) {
 	let arr = removePunc(str).split('');
@@ -36,8 +82,8 @@ function freqAnalysis(str) {
 			count = 1;
 			pos = arr[i];
 		}
-		else if (i === arr.length - 1) {
-			outputArr[outputArr.length - 1] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
+		else if (i === arr.length) {
+			outputArr[outputArr.length] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
 			output += arr[i-1] + ": " + (Math.round(count * 10000 / arr.length)/100) + "%";
 		}
 		else {
@@ -49,7 +95,6 @@ function freqAnalysis(str) {
 	for (i = 0; i < 26; i++) {
 		let letter = String.fromCharCode(i + 97);
 		if (!(outputArr.find( (a) => a[0] === letter) )) {
-			console.log(letter + " not found!");
 			outputArr.push([letter, 0]);
 		}
 	}
@@ -141,7 +186,7 @@ function viginere(str, type, key) {
 			count++;
 		}
 		else if (charNum >= 65 && charNum <= 90) {
-			outputStr += keyArr[count % key.length][charNum - 65];
+			outputStr += keyArr[count % key.length][charNum - 65].toUpperCase();
 			count++;
 		}
 		else {
@@ -199,12 +244,49 @@ function findViginereKeyLength(str) {
 				resArr[i - 2][1]++;
 			}
 		}
-		//Best results seem to come from √keylength * number of gaps divisible by key length.
 		resArr[i - 2][2] = Math.pow(resArr[i - 2][0], 0.25) * resArr[i - 2][1];
 		if (resArr[i - 2][2] > resArr[maxCount - 2][2]) {
 			maxCount = resArr[i - 2][0];
 		}
 	}
-	//console.log(resArr[maxCount][1]);
 	return maxCount;
+}
+
+//Matches frequency analysis result to closest Caesar shift alphabet
+function determineShift(arr) {
+	let inputArr = arr.sort((a, b) => a[0].charCodeAt(0) - b[0].charCodeAt(0));
+	let shiftFreqArr = engFreqAnalysis;
+	let count = 0;
+	let minRes = [-1, Infinity];
+	for (let i = 0; i < 26; i++) {
+		count = 0;
+		for (let j = 0; j < arr.length; j++) {
+			count += Math.abs(shiftFreqArr[j][1] - arr[j][1]);
+		}
+		if (count < minRes[1]) {
+			minRes = [i, count];
+		}
+		shiftFreqArr.unshift(shiftFreqArr.pop());
+	}
+	return minRes[0];
+}
+
+//Completely solves a Caesar shift cipher, given ciphertext only.
+function solveCaesar(str) {
+	let key = determineShift(freqAnalysis(str));
+	return caesarShift(str, 'decrypt', key);
+}
+
+//Completely solves a Viginere cipher, given ciphertext only.
+function solveViginere(str) {
+	let keyLen = findViginereKeyLength(str);
+	let strArr = extractStrings(str, keyLen);
+	let key = '';
+
+	for (let m = 0; m < keyLen; m++) {
+		key += String.fromCharCode(determineShift(freqAnalysis(strArr[m])) + 97);
+	}
+
+	return viginere(str, 'decrypt', key);
+
 }
