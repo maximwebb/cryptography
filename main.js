@@ -325,19 +325,12 @@ function playfair(str, key) {
 
 	for (let i = 0; i < strArr.length; i++) {
 		//Set a and b to first and second letter in plaintext pair respectively.
-		if (i === 140) {
-			console.log();
-		}
 		let a = keyObj[strArr[i][0]];
-		if (keyObj[strArr[i][1]] === undefined) throw 'shite... a is ' + a + ' and i is ' + i; //BREAKS AT i = 141
 		let b = keyObj[strArr[i][1]];
 
 		if (a[0] === b[0]) output += (keyArr[a[0]][(a[1] + 1) % 5] + keyArr[b[0]][(b[1] + 1) % 5]);
 		else if (a[1] === b[1]) output += (keyArr[(a[0] + 1) % 5][a[1]] + keyArr[(b[0] + 1) % 5][b[1]]);
 		else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
 	}
-
-
-
 	return output;
 }
