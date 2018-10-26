@@ -290,3 +290,54 @@ function solveViginere(str) {
 	return viginere(str, 'decrypt', key);
 
 }
+
+//Performs a playfair encryption
+function playfair(str, key) {
+	let keyTemp = new Set(key.replace(/j/g, 'i') + alphabet.replace(/j/g, 'i'));
+	key = '';
+	keyTemp.forEach((a) => key += a);
+	//key = key.replace(/j/, 'i');
+	let keyArr = [];
+	let keyObj = {};
+	for (let i = 0; i < 5; i++) {
+		keyArr.push([]);
+		for (let j = 0; j < 5; j++) {
+			keyArr[i].push(key[i * 5 + j]);
+			keyObj[key[i * 5 + j]] = [i, j];
+		}
+	}
+
+	str = removePunc(str.replace(/j/g, '')).split('');
+	let strArr = [];
+
+	//Inserts x's where necessary
+	for (let i = 0; i < str.length; i+= 2) {
+		if (!str[i + 1] && str.length % 2) {
+			str.push('x')
+		}
+		if (str[i] === str[i + 1]) {
+			str.splice(i + 1, 0, 'x');
+		}
+		strArr.push(str[i] + str[i + 1]);
+	}
+
+	let output = '';
+
+	for (let i = 0; i < strArr.length; i++) {
+		//Set a and b to first and second letter in plaintext pair respectively.
+		if (i === 140) {
+			console.log();
+		}
+		let a = keyObj[strArr[i][0]];
+		if (keyObj[strArr[i][1]] === undefined) throw 'shite... a is ' + a + ' and i is ' + i; //BREAKS AT i = 141
+		let b = keyObj[strArr[i][1]];
+
+		if (a[0] === b[0]) output += (keyArr[a[0]][(a[1] + 1) % 5] + keyArr[b[0]][(b[1] + 1) % 5]);
+		else if (a[1] === b[1]) output += (keyArr[(a[0] + 1) % 5][a[1]] + keyArr[(b[0] + 1) % 5][b[1]]);
+		else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
+	}
+
+
+
+	return output;
+}
