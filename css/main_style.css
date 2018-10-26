@@ -83,7 +83,7 @@
 .pers-plac-input {
     display: block;
     position: relative;
-    width: 190px;
+    width: 215px;
 }
 
 .pers-plac-input .persistent-placeholder {
@@ -92,6 +92,7 @@
     top: 0; right: 0; bottom: 0; left: 0;
     color: silver;
     background-color: transparent;
+    font-family: Consolas, 'Courier New', monospace;
     width: 90%;                                 /* These 90% widths are a quick fix to the inputs spilling into   */
 }                                               /* the [→] button divs, can't see why that's happening ¯\_(ツ)_/¯ */
 
@@ -100,6 +101,7 @@
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;    
     background-color: transparent;
+    font-family: Consolas, 'Courier New', monospace;
     width: 90%;
 }
 
