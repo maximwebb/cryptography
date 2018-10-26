@@ -5,27 +5,31 @@ let outputType = 'textbox';
 //Attaches event handlers to various inputs
 function setup() {
 
-	//On scroll of mouse wheel while 'split-input' is focused call scrollDropdown with target 'split'
+	//On scroll of mouse wheel while 'split-input' is focused call scrollControlButton with target 'split'
 	document.getElementById("splitstr-input").addEventListener('wheel', function(e) {
-		scrollDropdown("splitstr", e);
+		scrollControlButton("splitstr", e);
 	});
-	//On change to the 'splitstr-input' call updateDropdown with target 'split'
+	//On change to the 'splitstr-input' call updateControlButton with target 'split'
 	document.getElementById('splitstr-input').addEventListener('change', function() {
-		updateDropdown('splitstr');
+		updateControlButton('splitstr', 'number');
 	});
 
 	document.getElementById("cshift-input").addEventListener('wheel', function(e) {
-		scrollDropdown("cshift", e);
+		scrollControlButton("cshift", e);
 	});
 	document.getElementById('cshift-input').addEventListener('change', function() {
-		updateDropdown('cshift');
+		updateControlButton('cshift', 'number');
 	});
 
 	document.getElementById("ngram-input").addEventListener('wheel', function(e) {
-		scrollDropdown("ngram", e);
+		scrollControlButton("ngram", e);
 	});
 	document.getElementById('ngram-input').addEventListener('change', function() {
-		updateDropdown('ngram');
+		updateControlButton('ngram', 'number');
+	});
+
+	document.getElementById('monosub-input').addEventListener('change', function() {
+		updateControlButton('monosub', 'string');
 	});
 
 	if (autoFillText) {
@@ -62,15 +66,26 @@ function execMethod(command, params = []) {
 	else if (command === 'cshift') {
 		document.getElementById('output').value = caesarShift(inputText, cryptType, params[0]);
 	}
+	else if (command === 'ssgaps') {
+		document.getElementById('output').value = substringGaps(inputText, params[0]);
+	}
+	else if (command === 'monosub') {
+		document.getElementById('output').value = monoSub(inputText, cryptType, params[0]);
+	}
 }
 
 //Change onclick attribute of button, such that it passes the correct parameter value to the corresponding function
-function updateDropdown(target) {
-	document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [' + document.getElementById(target + '-input').value + '])');
+function updateControlButton(target, type) {
+	if (type === 'number') {
+		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [' + document.getElementById(target + '-input').value + '])')
+	}
+	else if (type === 'string') {
+		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [\'' + document.getElementById(target + '-input').value + '\'])')
+	}
 }
 
 //(On scroll event) checks if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and changes execMethod params accordingly.
-function scrollDropdown(target, e) {
+function scrollControlButton(target, e) {
 	let length = parseInt(document.getElementById(target + "-input").value);
 	if (e.deltaY < 0 && length <= document.getElementById(target + "-btn").max ) {
 		document.getElementById(target + "-btn").setAttribute("onclick", 'execMethod(\'' + target + '\', [' + (length+1) + '])');
