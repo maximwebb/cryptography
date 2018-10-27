@@ -26,7 +26,7 @@ splitString("Matrices are a type of data structure.", 4);
 
 extractStrings(str, n)
 ----------------------
-Takes every n-th letter in a string `str` and generates a new string, then takes every (n+1)-th string, and generates another stringsand so on. Returns all n strings as an array of strings.
+Takes every n-th letter in a string `str` and generates a new string, then takes every (n+1)-th string, and generates another string and so on. Returns all n strings as an array of strings.
 
 Example:
 ```javascript
