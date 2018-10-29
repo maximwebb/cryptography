@@ -5,6 +5,7 @@
     <title>Cryptography</title>
     <script src="main.js"></script>
     <script src="ux_commands.js"></script>
+    <script src="helper_methods.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="css/main_style.css" />
     <link rel="stylesheet" href="css/control_panel.css" />
@@ -49,8 +50,8 @@
         <div class="controlButton">
             <label for="monosub-input">Mono Substitution:</label>
             <div class="pers-plac-input">
-                <input class="persistent-placeholder" value="abcdefghijklmnopqrstuvwxyz" autocomplete="off">
-                <input class="actual-text-input" id="monosub-input" spellcheck="false" maxlength="26">
+                <input class="" value="" autocomplete="off">
+                <input placeholder="abcdefghijklmnopqrstuvwxyz" class="actual-text-input" id="monosub-input" spellcheck="false" maxlength="26">
             </div>
             <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
         </div>
