@@ -66,7 +66,7 @@ function extractStrings(str, n) {
 }
 
 //Performs a frequency analysis on a string
-function freqAnalysis(str) {
+function freqAnalysis(str, relative = true) {
 	let arr = removePunc(str).split('');
 	arr.sort();
 
@@ -77,14 +77,22 @@ function freqAnalysis(str) {
 	for (i = 0; i < arr.length + 1; i++) {
 		if (arr[i] !== pos) {
 			outputArr.push([]);
-			outputArr[outputArr.length - 1] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
-			output += arr[i-1] + ": " + (Math.round(count * 10000 / arr.length)/100) + "%, ";
+			if (relative) {
+				outputArr[outputArr.length - 1] = [arr[i - 1], Math.round(count * 10000 / arr.length)/100];
+			}
+			else {
+				outputArr[outputArr.length - 1] = [arr[i - 1], count];
+			}
 			count = 1;
 			pos = arr[i];
 		}
 		else if (i === arr.length) {
-			outputArr[outputArr.length] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
-			output += arr[i-1] + ": " + (Math.round(count * 10000 / arr.length)/100) + "%";
+			if (relative) {
+				outputArr[outputArr.length] = [arr[i-1], Math.round(count * 10000 / arr.length)/100];
+			}
+			else {
+				outputArr[outputArr.length] = [arr[i-1], count];
+			}
 		}
 		else {
 			count++;
@@ -104,7 +112,7 @@ function freqAnalysis(str) {
 }
 
 //Performs an n-gram analysis on a string, for n = len, returning a specified number of results.
-function nGramAnalysis(input, len, outputNum = 50) {
+function nGramAnalysis(input, len, outputNum = 50, relative = true) {
 
 	let substrArr = [];
 	let outputArr = [];
@@ -129,12 +137,22 @@ function nGramAnalysis(input, len, outputNum = 50) {
 	for (let i = 1; i <= substrArr.length; i++) {
 		if (pos !== substrArr[i]) {
 			pos = substrArr[i];
-			outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+			if (relative) {
+				outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+			}
+			else {
+				outputArr.push([substrArr[i-1], count]);
+			}
 			count = 1;
 		}
 		else if (i === substrArr.length) {
 			pos = substrArr[i];
-			outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+			if (relative) {
+				outputArr.push([substrArr[i-1], Math.round(count * 10000/substrArr.length)/100]);
+			}
+			else {
+				outputArr.push([substrArr[i-1], count]);
+			}
 		}
 		else {
 			count++;
@@ -340,7 +358,7 @@ function playfair(str, key) {
 }
 
 //Performs a bigram analysis on a string split into pairs: 'abcd' -> 'ab', 'cd'
-function playfairBigrams(str) {
+function playfairBigrams(str, relative = false) {
 	let pairsArr = splitString(str, 2).split(' ');
-	return nGramAnalysis(pairsArr, 2, 0);
+	return nGramAnalysis(pairsArr, 2, 0, relative);
 }

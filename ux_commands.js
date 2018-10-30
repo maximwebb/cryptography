@@ -83,6 +83,9 @@ function execMethod(command, params = []) {
 	else if (command === 'monosub') {
 		document.getElementById('output').value = monoSub(inputText, cryptType, params[0]);
 	}
+	else if (command === 'playgrid') {
+		playfairGrid(inputText, params[0]);
+	}
 }
 
 //Change onclick attribute of button, such that it passes the correct parameter value to the corresponding function
@@ -193,15 +196,28 @@ function barChart(data, xAxis, yAxis, order = 'numeric') {
 	});
 }
 
-var arr1 = [['a', 10], ['b', 20], ['d', 50]];
+//Take sorted array of pairs and assigns different shades of a given colour.
+function heatMap(arr, colour) {
+	let outputArr = [];
+	let maxVal = arr[0][1];
+	let minVal = arr[arr.length - 1][1];
 
-function playfairGrid(str) {
-	let freqArr = freqAnalysis(str);
-	let bigramArr = playfairBigrams(str);
+	for (let i = 0; i < arr.length; i++) {
+		outputArr.push([arr[i][0], 'rgba(255, 0, 0, ' + ((arr[i][1] - minVal)/ maxVal) + ')']);
+	}
+	return outputArr;
+}
+
+function playfairGrid(str, relative = false) {
+	let freqArr = freqAnalysis(str, relative);
+	let bigramArr = playfairBigrams(str, relative);
+	let bigramHeatArr = heatMap(bigramArr);
 	let bigramObj = {};
+	let bigramHeatObj = {};
 
 	for (let i = 0; i < bigramArr.length; i++) {
 		bigramObj[bigramArr[i][0]] = bigramArr[i][1];
+		bigramHeatObj[bigramHeatArr[i][0]] = bigramHeatArr[i][1];
 	}
 
 	let outputHTML = '';
@@ -213,7 +229,12 @@ function playfairGrid(str) {
 				outputHTML += '<td></td>';
 			}
 			else if (i === 0 && j === 1) {
-				outputHTML += '<td><b>Frequency %</b></td>';
+				if (relative) {
+					outputHTML += '<td><b>Frequency %</b></td>';
+				}
+				else {
+					outputHTML += '<td><b>Frequency</b></td>';
+				}
 			}
 			else if (i === 0 && j > 1) {
 				outputHTML += '<td><b>' + String.fromCharCode(j + 63) + '</b></td>';
@@ -229,10 +250,10 @@ function playfairGrid(str) {
 				let col = String.fromCharCode(j + 95);
 				console.log(row + col);
 				if (typeof(bigramObj[row + col]) === 'number') {
-					outputHTML += '<td>' + bigramObj[row + col] + '</td>';
+					outputHTML += '<td style="background-color: ' + bigramHeatObj[row + col] + '">' + bigramObj[row + col] + '</td>';
 				}
 				else {
-					outputHTML += '<td>0.00</td>';
+					outputHTML += '<td>0</td>';
 				}
 			}
 		}
@@ -240,5 +261,5 @@ function playfairGrid(str) {
 	}
 
 	document.getElementById('grid').innerHTML = outputHTML;
-	return bigramObj;
+	return bigramArr;
 }
