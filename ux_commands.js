@@ -28,9 +28,10 @@ function setup() {
 	document.getElementById('ngram-input').addEventListener('change', function() {
 		updateControlButton('ngram', 'number');
 	});
-
-	document.getElementById('monosub-input').addEventListener('change', function() {
+	//On change to the 'monosub-input' call updateControlButton and updatePersPlaceholder with target 'monosub'
+	document.getElementById('monosub-input').addEventListener('keypress', function() {
 		updateControlButton('monosub', 'string');
+		updatePersPlaceholder('monosub', 'abcdefghijklmnopqrstuvwxyz');
 	});
 
 	if (autoFillText) {
@@ -103,6 +104,21 @@ function scrollControlButton(target, e) {
 	else if (e.deltaY > 0 && length >= document.getElementById(target + "-btn").min ) {
 		document.getElementById(target + "-btn").setAttribute('onclick', 'execMethod(\'' + target + '\', [' + (length-1) + '])');
 	}
+}
+
+//Change the placeholder of a pers-plac input such that when typed over the placeholder is removed
+function updatePersPlaceholder(target, placeholder) {
+	let input = document.getElementById(target + "-input").value;
+	//let placeholder = document.getElementById(target + "-plac").value;
+	let blocks = input.split(" ");
+	let currentStr = "";	//currentStr is the string currently being replaced with ␣'s
+	let sum = 0;	//sum is the position through the placeholder from left to right
+	for (i=0; i<blocks.length; i++) {
+		currentStr = placeholder.substr(sum, blocks[i].length);	//sub string from current position(sum) and length of the current block(of text) from input
+		placeholder = placeholder.replace(currentStr, ' '.repeat(blocks[i].length));	//replace equivalent of input text with ␣'s
+		sum += blocks[i].length + 1;	//sum is updated to be the length of the input strings plus the space between them
+	}
+	document.getElementById(target + '-plac').setAttribute('value', placeholder);
 }
 
 //Changes the type (en/decrypt) as well as the image when the en/decrypt toggle image is clicked
