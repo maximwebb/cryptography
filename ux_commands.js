@@ -46,7 +46,7 @@ function setup() {
 
 		engMsg = 'Concerning the history of Beowulf a whole library has been written, and scholars still differ too radically for us to express a positive judgment. This much, however, is clear,--that there existed, at the time the poem was composed, various northern legends of Beowa, a half-divine hero, and the monster Grendel. The latter has been interpreted in various ways,--sometimes as a bear, and again as the malaria of the marsh lands. For those interested in symbols the simplest interpretation of these myths is to regard Beowulfs successive fights with the three dragons as the overcoming, first, of the overwhelming danger of the sea, which was beaten back by the dykes; second, the conquering of the sea itself, when men learned to sail upon it and third, the conflict with the hostile forces of nature, which are overcome at last by mans indomitable will and perseverance.All this is purely mythical; but there are historical incidents to reckon with. About the year 520 a certain northern chief, called by the chronicler Chochilaicus (who is generally identified with the Hygelac of the epic), led a huge plundering expedition up the Rhine. After a succession of battles he was overcome by the Franks, but--and now we enter a legendary region once more--not until a gigantic nephew of Hygelac had performed heroic feats of valor, and had saved the remnants of the host by a marvelous feat of swimming. The majority of scholars now hold that these historical events and personages were celebrated in the epic; but some still assert that the events which gave a foundation for Beowulf occurred wholly on English soil, where the poem itself was undoubtedly written.			Poetical FormThe rhythm of Beowulf and indeed of all our earliest poetry depended upon accent and alliteration; that is, the beginning of two or more words in the same line with the same sound or letter. The lines were made up of two short halves, separated by a pause. No rime was used; but a musical effect was produced by giving each half line two strongly accented syllables. Each full line, therefore, had four accents, three of which (i.e. two in the first half, and one in the second) usually began with the same sound or letter. The musical effect was heightened by the harp with which the gleeman accompanied his singing.. The poetical form will be seen clearly in the following selection from the wonderfully realistic description of the fens haunted by Grendel. It will need only one or two readings aloud to show that many of these strange-looking words are practically the same as those we still use, though many of the vowel sounds were pronounced differently by our ancestors.';
 
-		foobar = playfair(engMsg, removePunc(engMsg.slice(200, 207)));
+		foobar = playfair(engMsg, 'encrypt', removePunc(engMsg.slice(200, 207)));
 		document.getElementById('input').value = foobar;
 	}
 }
@@ -248,7 +248,6 @@ function playfairGrid(str, relative = false) {
 			else {
 				let row = String.fromCharCode(i + 96);
 				let col = String.fromCharCode(j + 95);
-				console.log(row + col);
 				if (typeof(bigramObj[row + col]) === 'number') {
 					outputHTML += '<td style="background-color: ' + bigramHeatObj[row + col] + '">' + bigramObj[row + col] + '</td>';
 				}

@@ -28,6 +28,9 @@ let engFreqAnalysis = [
 	['z', 0.074]
 ];
 
+let engBigramAnalysis = [
+	[],
+];
 
 
 //Removes spaces & punctuation from string
@@ -251,7 +254,7 @@ function substringGaps(str, substr_length) {
 	return gapsArr.sort((a, b) => (a - b));
 }
 
-//Determines length of key word in Viginere ciphers
+//Determines length of key word in Viginere ciphers.
 function findViginereKeyLength(str) {
 	let keyArr = substringGaps(str, 3);
 	let resArr = [];
@@ -271,7 +274,7 @@ function findViginereKeyLength(str) {
 	return maxCount;
 }
 
-//Matches frequency analysis result to closest Caesar shift alphabet
+//Matches frequency analysis result to closest Caesar shift alphabet.
 function determineShift(arr) {
 	let inputArr = arr.sort((a, b) => a[0].charCodeAt(0) - b[0].charCodeAt(0));
 	let shiftFreqArr = engFreqAnalysis;
@@ -310,8 +313,8 @@ function solveViginere(str) {
 
 }
 
-//Performs a playfair encryption
-function playfair(str, key) {
+//Performs a playfair encryption/decryption.
+function playfair(str, type, key) {
 	let keyTemp = new Set(key.replace(/j/g, 'i') + alphabet.replace(/j/g, 'i'));
 	key = '';
 	keyTemp.forEach((a) => key += a);
@@ -332,33 +335,51 @@ function playfair(str, key) {
 	}
 	let strArr = [];
 
+
 	//Inserts x's where necessary
-	for (let i = 0; i < str.length; i+= 2) {
-		if (!str[i + 1] && str.length % 2) {
-			str.push('x')
-		}
-		if (str[i] === str[i + 1]) {
-			str.splice(i + 1, 0, 'x');
+	for (let i = 0; i < str.length; i += 2) {
+		if (type === 'encrypt') {
+			if (!str[i + 1] && str.length % 2) {
+				str.push('x')
+			}
+			if (str[i] === str[i + 1]) {
+				str.splice(i + 1, 0, 'x');
+			}
 		}
 		strArr.push(str[i] + str[i + 1]);
 	}
 
 	let output = '';
 
-	for (let i = 0; i < strArr.length; i++) {
-		//Set a and b to first and second letter in plaintext pair respectively.
-		let a = keyObj[strArr[i][0]];
-		let b = keyObj[strArr[i][1]];
+	if (type === 'encrypt') {
+		for (let i = 0; i < strArr.length; i++) {
+			//Set a & b to coords of 1st & 2nd letter in plaintext pair respectively. a[0] = row num, a[1] = col num.
+			let a = keyObj[strArr[i][0]];
+			let b = keyObj[strArr[i][1]];
 
-		if (a[0] === b[0]) output += (keyArr[a[0]][(a[1] + 1) % 5] + keyArr[b[0]][(b[1] + 1) % 5]);
-		else if (a[1] === b[1]) output += (keyArr[(a[0] + 1) % 5][a[1]] + keyArr[(b[0] + 1) % 5][b[1]]);
-		else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
+			if (a[0] === b[0]) output += (keyArr[a[0]][(a[1] + 1) % 5] + keyArr[b[0]][(b[1] + 1) % 5]);
+			else if (a[1] === b[1]) output += (keyArr[(a[0] + 1) % 5][a[1]] + keyArr[(b[0] + 1) % 5][b[1]]);
+			else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
+		}
+	}
+	else {
+		for (let i = 0; i < strArr.length; i++) {
+			//Set a & b to coords of 1st & 2nd letter in plaintext pair respectively. a[0] = row num, a[1] = col num.
+			let a = keyObj[strArr[i][0]];
+			let b = keyObj[strArr[i][1]];
+
+			if (a[0] === b[0]) output += (keyArr[a[0]][(a[1] + 4) % 5] + keyArr[b[0]][(b[1] + 4) % 5]);
+			else if (a[1] === b[1]) output += (keyArr[(a[0] + 4) % 5][a[1]] + keyArr[(b[0] + 4) % 5][b[1]]);
+			else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
+		}
 	}
 	return output;
 }
 
-//Performs a bigram analysis on a string split into pairs: 'abcd' -> 'ab', 'cd'
+
+//Performs a bigram analysis on a string split into pairs: 'abcd' -> 'ab', 'cd'.
 function playfairBigrams(str, relative = false) {
 	let pairsArr = splitString(str, 2).split(' ');
 	return nGramAnalysis(pairsArr, 2, 0, relative);
 }
+
