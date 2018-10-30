@@ -308,6 +308,9 @@ function playfair(str, key) {
 	}
 
 	str = removePunc(str.replace(/j/g, '')).split('');
+	if (str[str.length - 1] === 'x') {
+		str = str.slice(0, -1);
+	}
 	let strArr = [];
 
 	//Inserts x's where necessary
