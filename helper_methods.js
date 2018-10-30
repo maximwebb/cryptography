@@ -15,10 +15,10 @@ function bar(str) {
 function fetchSeqData(n, start = 0) {
 	let num = start;
 	var t = setInterval(function() {
-		fetchData(num * 200000, (num + 1) * 200000);
+		fetchData(num * 20000, (num + 1) * 20000);
 		num++;
 		if (num > n + start) {
-			genCaesar();
+			genPlayfair();
 			clearInterval(t);
 		}
 	}, 500);

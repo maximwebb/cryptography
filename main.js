@@ -104,14 +104,14 @@ function freqAnalysis(str) {
 }
 
 //Performs an n-gram analysis on a string, for n = len, returning a specified number of results.
-function nGramAnalysis(input, len, outputNum = 50, string = true) {
+function nGramAnalysis(input, len, outputNum = 50) {
 
 	let substrArr = [];
 	let outputArr = [];
 	let count = 1;
 
 	//Allows for input as an array or a string (ie. array of numbers).
-	if (string) {
+	if (typeof(input) === 'string') {
 		let str2 = removePunc(input);
 
 		//Create ordered array of substrings
@@ -121,7 +121,7 @@ function nGramAnalysis(input, len, outputNum = 50, string = true) {
 		substrArr.sort();
 	}
 	else {
-		substrArr = input;
+		substrArr = input.sort();
 	}
 
 
@@ -142,7 +142,8 @@ function nGramAnalysis(input, len, outputNum = 50, string = true) {
 	}
 	outputArr.sort( (a, b) => b[1] - a[1]);
 
-	return outputArr.splice(0, 50);
+	if (outputNum === 0) return outputArr;
+	else return outputArr.splice(0, outputNum);
 }
 
 //Returns frequency analysis array as a string
@@ -336,4 +337,10 @@ function playfair(str, key) {
 		else output += (keyArr[a[0]][b[1]] + keyArr[b[0]][a[1]]);
 	}
 	return output;
+}
+
+//Performs a bigram analysis on a string split into pairs: 'abcd' -> 'ab', 'cd'
+function playfairBigrams(str) {
+	let pairsArr = splitString(str, 2).split(' ');
+	return nGramAnalysis(pairsArr, 2, 0);
 }

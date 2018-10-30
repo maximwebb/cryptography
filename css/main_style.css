@@ -26,6 +26,24 @@
     display: none;
 }
 
+#grid-container {
+    display: none;
+}
+
+#grid {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+#grid tr:nth-child(2n) {
+    background-color: #e8e8e8;
+}
+
+#grid td {
+    padding: 5px;
+    text-align: center;
+}
+
 .btn {
     padding: 15px;
     border-radius: 5px;
