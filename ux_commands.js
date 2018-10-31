@@ -158,7 +158,15 @@ function copyOutput() {
 //Changes between various views.
 function toggleView(view) {
 	document.querySelectorAll('.container').forEach((cont) => cont.style.display = "none");
-	document.getElementById(view).style.display = "block";
+	document.getElementById(view).style.display = "flex";
+}
+
+function toggleTab(tab) {
+	document.querySelectorAll('.active-tab').forEach((tb) => tb.classList.remove('active-tab'));
+	document.getElementById(tab + '-tab').classList.add('active-tab');
+	document.querySelectorAll('.active-panel').forEach((pn) => pn.classList.remove('active-panel'));
+	document.getElementById(tab + '-panel').classList.add('active-panel');
+	toggleView('flex-container-main');
 }
 
 //Displays a bar chart

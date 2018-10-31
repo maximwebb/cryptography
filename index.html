@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cryptography</title>
     <script src="main.js"></script>
     <script src="ux_commands.js"></script>
@@ -15,60 +15,76 @@
 
 <div id="control-panel-container">
 
-    <div id="crypt-direction">
-        <img id="cryptTypeImg" src="./images/locked.png" onclick="flipCryptType()">
+    <div id="control-panel-tabs">
+        <ul id="ul-tabs">
+            <li id="general-tab" class="tab active-tab" onclick="toggleTab('general')">General</li>
+            <li id="substitution-tab" class="tab" onclick="toggleTab('substitution')">Substitution</li>
+            <li id="viginere-tab" class="tab" onclick="toggleTab('viginere')">Viginere</li>
+            <li id="playfair-tab" class="tab" onclick="toggleTab('playfair')">Playfair</li>
+        </ul>
     </div>
 
     <div id="control-panel">
-        
-        <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
+        <div id="general-panel" class="panel active-panel">
+            <div class="option option-1" onclick="execMethod('rempunc')">Remove Punctuation</div>
 
-        <div class="controlButton">
-            <label for="splitstr-input">Split string:</label>
-            <input id="splitstr-input" type="number" value="3" name="splitstr-input" min="1">
-            <div id="splitstr-btn" onclick="execMethod('splitstr', [3])">&rarr;</div>
-        </div>
-        
-        <div class="controlButton">
-            <label for="ngram-input">N-Gram Analysis:</label>
-            <input id="ngram-input" type="number" value="1" name="ngram-input" min="1" max="50">
-            <div id="ngram-btn" onclick="execMethod('ngram', [1])">&rarr;</div>
-        </div>
-
-        <div class="controlButton">
-            <label for="cshift-input">Caesar Shift:</label>
-            <input id="cshift-input" type="number" value="3" name="cshift-input" min="1" max="25">
-            <div id="cshift-btn" onclick="execMethod('cshift', [3])">&rarr;</div>
-        </div>
-
-        <div class="controlButton">
-            <label for="ssgaps-input">Gaps between strings of length:</label>
-            <input id="ssgaps-input" type="number" value="3" name="ssgaps-input" min="1">
-            <div id="ssgaps-btn" onclick="execMethod('ssgaps', [3])">&rarr;</div>
-        </div>
-
-        <div class="controlButton">
-            <label for="monosub-input">Mono Substitution:</label>
-            <div class="pers-plac-input">
-                <input class="persistent-placeholder" id="monosub-plac" value="abcdefghijklmnopqrstuvwxyz" autocomplete="off">
-                <input class="actual-text-input" id="monosub-input" spellcheck="false" maxlength="26">
+            <div class="controlButton">
+                <label for="splitstr-input">Split string:</label>
+                <input id="splitstr-input" type="number" value="3" name="splitstr-input" min="1">
+                <div id="splitstr-btn" onclick="execMethod('splitstr', [3])">&rarr;</div>
             </div>
-            <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
+            <div class="controlButton">
+                <label for="ngram-input">N-Gram Analysis:</label>
+                <input id="ngram-input" type="number" value="1" name="ngram-input" min="1" max="50">
+                <div id="ngram-btn" onclick="execMethod('ngram', [1])">&rarr;</div>
+            </div>
+            <!--<div id="output-type">-->
+                <!--<img id="outputTypeImg" src="./images/textbox.png" onclick="flipOutputType()">-->
+            <!--</div>-->
         </div>
 
-        <div class="option option-1" onclick="execMethod('playgrid', [false])">Display Grid</div>
+        <div id="substitution-panel" class="panel">
+            <div class="controlButton">
+                <label for="cshift-input">Caesar Shift:</label>
+                <input id="cshift-input" type="number" value="3" name="cshift-input" min="1" max="25">
+                <div id="cshift-btn" onclick="execMethod('cshift', [3])">&rarr;</div>
+            </div>
+            <div class="controlButton">
+                <label for="monosub-input">Mono Substitution:</label>
+                <div class="pers-plac-input">
+                    <input class="persistent-placeholder" id="monosub-plac" value="abcdefghijklmnopqrstuvwxyz" autocomplete="off">
+                    <input class="actual-text-input" id="monosub-input" spellcheck="false" maxlength="26">
+                </div>
+                <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
+            </div>
+            <div id="crypt-direction">
+                <img id="cryptTypeImg" src="./images/locked.png" onclick="flipCryptType()">
+            </div>
+        </div>
+
+        <div id="viginere-panel" class="panel">
+            <div class="controlButton">
+                <label for="ssgaps-input">Gaps between strings of length:</label>
+                <input id="ssgaps-input" type="number" value="3" name="ssgaps-input" min="1">
+                <div id="ssgaps-btn" onclick="execMethod('ssgaps', [3])">&rarr;</div>
+            </div>
+        </div>
+
+        <div id="playfair-panel" class="panel">
+            <div class="option option-1" onclick="execMethod('playgrid', [false])">Frequency Grid</div>
+        </div>
 
     </div>
 
-    <div id="output-type">
-        <img id="outputTypeImg" src="./images/textbox.png" onclick="flipOutputType()">
-    </div>
+
 
 </div>
 
 <div class="container" id="flex-container-main">
-    <textarea id="input" placeholder="Enter text here..."></textarea>
-    <textarea id="output" placeholder="Output will appear here..."></textarea>
+    <div id="input-output-container">
+        <textarea id="input" placeholder="Enter text here..."></textarea>
+        <textarea id="output" placeholder="Output will appear here..."></textarea>
+    </div>
     <button class="btn" id="copy-btn" onclick="copyOutput()">Copy</button>
 </div>
 

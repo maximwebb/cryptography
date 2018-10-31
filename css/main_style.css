@@ -1,33 +1,45 @@
 .container {
-    margin: auto; 
-    width: 50%;
+    margin: auto 25%;
 }
 
 #flex-container-main {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
-    justify-content: space-between;
-    align-content: flex-start;
+    justify-content: space-around;
     height: 500px;
 }
 
+#input-output-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 #input, #output {
-    margin: 10px;
-    width: 45%;
+    width: 47.5%;
     height: 400px;
 }
 
 #copy-btn {
-    margin: auto 2vw auto auto;
+    align-self: flex-end;
 }
 
 #graph-container {
     display: none;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 #grid-container {
     display: none;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#return-btn {
+    align-self: flex-start;
+    margin-bottom: 20px;
 }
 
 #grid {
@@ -54,16 +66,15 @@
 }
 
 .option-1 {
-    margin: 0 12px;
     padding: 8px;
     border-radius: 2px;
     cursor: pointer;
     transition: 0.2s;
-    border: 1px solid #2e96cb;
+    border: 1px solid #673ab7;
 }
 
 .option-1:hover {
-    background-color: #2e96cb;
+    background-color: #673ab7;
     color: #ffffff;
 }
 
@@ -73,7 +84,7 @@
     margin: 0 12px;
     padding: 0;
     border-radius: 2px;
-    border: 1px solid #2e96cb;
+    border: 1px solid #673ab7;
     cursor: pointer;
 }
 
@@ -89,7 +100,7 @@
     transition: 0.2s;
     border-width: 0 0 0 1px;
     border-style: solid; 
-    border-color:  #2e96cb;
+    border-color:  #673ab7;
     background-color: #e8e8e8;
     width: 50px;
 }
@@ -131,11 +142,11 @@
     padding: 8px;
     border-width: 0 0 0 1px;
     border-style: solid; 
-    border-color:  #2e96cb;
+    border-color:  #673ab7;
 }
 
 .controlButton div:last-child:hover {
-    background-color: #2e96cb;
+    background-color: #673ab7;
     color: #ffffff;
 }
 
