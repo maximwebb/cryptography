@@ -127,23 +127,32 @@ function updatePersPlaceholder(target, placeholder) {
 //Changes the type (en/decrypt) as well as the image when the en/decrypt toggle image is clicked
 function flipCryptType() {
 	if (cryptType === 'encrypt') {
-		document.getElementById("cryptTypeImg").setAttribute('src', './images/unlocked.png');
+		document.getElementById('cryptTypeIcon').innerHTML = 'lock_open';
 		cryptType = 'decrypt';
 	}
 	else if (cryptType === 'decrypt') {
-		document.getElementById("cryptTypeImg").setAttribute('src', './images/locked.png');
+		document.getElementById('cryptTypeIcon').innerHTML = 'lock';
 		cryptType = 'encrypt';
 	}
 }
 
 //Changes the output type (text/graph) as well as the image when the outputType image is clicked
 function flipOutputType() {
+	// if (outputType === 'textbox') {
+	// 	document.getElementById("outputTypeImg").setAttribute('src', './images/graph.png');
+	// 	outputType = 'graph';
+	// }
+	// else if (outputType === 'graph') {
+	// 	document.getElementById("outputTypeImg").setAttribute('src', './images/textbox.png');
+	// 	outputType = 'textbox';
+	// }
+
 	if (outputType === 'textbox') {
-		document.getElementById("outputTypeImg").setAttribute('src', './images/graph.png');
+		document.getElementById('outputTypeIcon').innerHTML = 'insert_chart_outlined';
 		outputType = 'graph';
 	}
 	else if (outputType === 'graph') {
-		document.getElementById("outputTypeImg").setAttribute('src', './images/textbox.png');
+		document.getElementById('outputTypeIcon').innerHTML = 'list';
 		outputType = 'textbox';
 	}
 }

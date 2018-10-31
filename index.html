@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
     <link rel="stylesheet" href="css/main_style.css" />
     <link rel="stylesheet" href="css/control_panel.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body style="font-family: calibri;" onload="setup();">
@@ -41,6 +42,9 @@
             <!--<div id="output-type">-->
                 <!--<img id="outputTypeImg" src="./images/textbox.png" onclick="flipOutputType()">-->
             <!--</div>-->
+            <div id="output-type">
+                <i id="outputTypeIcon" class="material-icons" onclick="flipOutputType()">list</i>
+            </div>
         </div>
 
         <div id="substitution-panel" class="panel">
@@ -58,7 +62,7 @@
                 <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
             </div>
             <div id="crypt-direction">
-                <img id="cryptTypeImg" src="./images/locked.png" onclick="flipCryptType()">
+                <i id="cryptTypeIcon" class="material-icons" onclick="flipCryptType()">lock</i>
             </div>
         </div>
 
