@@ -109,20 +109,11 @@
     background-color: #ffffff;
 }
 
-.pers-plac-input {
+#monosub-input {
     display: block;
     position: relative;
-    width: 215px;
-}
-
-.pers-plac-input .persistent-placeholder {
-    z-index: 0;
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    color: silver;
-    background-color: transparent;
+    width: 190px;
     font-family: Consolas, 'Courier New', monospace;
-    width: 90%;
 }
 
 .pers-plac-input .actual-text-input {
@@ -134,7 +125,7 @@
     width: 90%;
 }
 
-.pers-plac-input .actual-text-input:focus {
+#monosub-input:focus {
     background-color: transparent;
 }
 
