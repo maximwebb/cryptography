@@ -52,8 +52,11 @@
             </div>
             <div class="controlButton">
                 <label for="monosub-input">Mono Substitution:</label>
-                <input class="actual-text-input" id="monosub-input" placeholder="abcdefghijklmnopqrstuvwxyz" spellcheck="false" maxlength="26">
-                <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
+                <div class="pers-plac-input">
+                    <input id="monosub-plac" class="persistent-placeholder" value="abcdefghijklmnopqrstuvwxyz" autocomplete="off">
+                    <input id="monosub-input" class="actual-text-input" spellcheck="false" maxlength="26">
+                </div>
+                <div id="monosub-btn" onclick="execMethod('monosub')">&rarr;</div>
             </div>
             <div id="crypt-direction">
                 <i id="cryptTypeIcon" class="material-icons" onclick="flipCryptType()">lock</i>

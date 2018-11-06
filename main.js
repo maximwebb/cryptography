@@ -223,6 +223,7 @@ function monoSub(str, type='encrypt', key='zyxwabcdefghijklmnopqrstuv') {
 	let encrypt = (type === 'encrypt');
 	let strArr = str.split('');
 	let outputStr = '';
+	key = key.replace(/[^a-zA-Z]/g, '*');
 
 	let keyArr = new Array(26).fill([]);
 	keyArr = keyArr.map((x, index) => [alphabet.charAt(index), key.charAt(index)]);
