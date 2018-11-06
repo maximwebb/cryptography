@@ -109,21 +109,12 @@
     background-color: #ffffff;
 }
 
-.pers-plac-input {
+#monosub-input {
     display: block;
     position: relative;
-    width: 215px;
-}
-
-.pers-plac-input .persistent-placeholder {
-    z-index: 0;
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    color: silver;
-    background-color: transparent;
+    width: 190px;
     font-family: Consolas, 'Courier New', monospace;
-    width: 90%;                                 /* These 90% widths are a quick fix to the inputs spilling into   */
-}                                               /* the [→] button divs, can't see why that's happening ¯\_(ツ)_/¯ */
+}
 
 .pers-plac-input .actual-text-input {
     z-index: 1;
@@ -134,7 +125,7 @@
     width: 90%;
 }
 
-.pers-plac-input .actual-text-input:focus {
+#monosub-input:focus {
     background-color: transparent;
 }
 
@@ -148,6 +139,10 @@
 .controlButton div:last-child:hover {
     background-color: #673ab7;
     color: #ffffff;
+}
+
+.keyword-input {
+    width: 100px !important;
 }
 
 body {

@@ -6,32 +6,11 @@ let foobar;
 //Attaches event handlers to various inputs
 function setup() {
 
-	//On scroll of mouse wheel while 'split-input' is focused call scrollControlButton with target 'split'
-	document.getElementById("splitstr-input").addEventListener('wheel', function(e) {
-		scrollControlButton("splitstr", e);
-	});
-	//On change to the 'splitstr-input' call updateControlButton with target 'split'
-	document.getElementById('splitstr-input').addEventListener('change', function() {
-		updateControlButton('splitstr', 'number');
-	});
+	//Adds dummy event listener for certain inputs to listen for wheel event and update value accordingly.
+	document.querySelectorAll('.wheel-input').forEach(function(ipt) {
+		ipt.addEventListener('wheel', function(e) {
 
-	document.getElementById("cshift-input").addEventListener('wheel', function(e) {
-		scrollControlButton("cshift", e);
-	});
-	document.getElementById('cshift-input').addEventListener('change', function() {
-		updateControlButton('cshift', 'number');
-	});
-
-	document.getElementById("ngram-input").addEventListener('wheel', function(e) {
-		scrollControlButton("ngram", e);
-	});
-	document.getElementById('ngram-input').addEventListener('change', function() {
-		updateControlButton('ngram', 'number');
-	});
-	//On change to the 'monosub-input' call updateControlButton and updatePersPlaceholder with target 'monosub'
-	document.getElementById('monosub-input').addEventListener('keypress', function() {
-		updateControlButton('monosub', 'string');
-		updatePersPlaceholder('monosub', 'abcdefghijklmnopqrstuvwxyz');
+		});
 	});
 
 	if (autoFillText) {
@@ -47,81 +26,39 @@ function setup() {
 		engMsg = 'Concerning the history of Beowulf a whole library has been written, and scholars still differ too radically for us to express a positive judgment. This much, however, is clear,--that there existed, at the time the poem was composed, various northern legends of Beowa, a half-divine hero, and the monster Grendel. The latter has been interpreted in various ways,--sometimes as a bear, and again as the malaria of the marsh lands. For those interested in symbols the simplest interpretation of these myths is to regard Beowulfs successive fights with the three dragons as the overcoming, first, of the overwhelming danger of the sea, which was beaten back by the dykes; second, the conquering of the sea itself, when men learned to sail upon it and third, the conflict with the hostile forces of nature, which are overcome at last by mans indomitable will and perseverance.All this is purely mythical; but there are historical incidents to reckon with. About the year 520 a certain northern chief, called by the chronicler Chochilaicus (who is generally identified with the Hygelac of the epic), led a huge plundering expedition up the Rhine. After a succession of battles he was overcome by the Franks, but--and now we enter a legendary region once more--not until a gigantic nephew of Hygelac had performed heroic feats of valor, and had saved the remnants of the host by a marvelous feat of swimming. The majority of scholars now hold that these historical events and personages were celebrated in the epic; but some still assert that the events which gave a foundation for Beowulf occurred wholly on English soil, where the poem itself was undoubtedly written.			Poetical FormThe rhythm of Beowulf and indeed of all our earliest poetry depended upon accent and alliteration; that is, the beginning of two or more words in the same line with the same sound or letter. The lines were made up of two short halves, separated by a pause. No rime was used; but a musical effect was produced by giving each half line two strongly accented syllables. Each full line, therefore, had four accents, three of which (i.e. two in the first half, and one in the second) usually began with the same sound or letter. The musical effect was heightened by the harp with which the gleeman accompanied his singing.. The poetical form will be seen clearly in the following selection from the wonderfully realistic description of the fens haunted by Grendel. It will need only one or two readings aloud to show that many of these strange-looking words are practically the same as those we still use, though many of the vowel sounds were pronounced differently by our ancestors.';
 
 		foobar = playfair(engMsg, 'encrypt', removePunc(engMsg.slice(200, 207)));
-		document.getElementById('input').value = foobar;
+		document.getElementById('input').value = engMsg;
 	}
-}
-
-//Solves a playfair cipher
-function solvePlayfair(str) {
-	//P(A <->) = 5/6
 }
 
 //Enters input text, and executes a specified command on it.
 function execMethod(command, params = []) {
-	inputText = document.getElementById('input').value;
-	let outputText = '';
-	if (command === 'ngram') {
-		if (!params[1]) {
-			params[1] = (params[0] === 1) ? 26 : 50;
-		}
+	let inputText = document.getElementById('input').value;
 
-		if (outputType === 'graph') barChart(nGramAnalysis(inputText, params[0], params[1]), '', 'Frequency %');
-		else document.getElementById('output').value = printFreqArr(nGramAnalysis(inputText, params[0]));
+	if (command === 'ngram') {
+		if (outputType === 'graph') barChart(nGramAnalysis(inputText, parseInt(document.getElementById('ngram-input').value), 26), '', 'Frequency %');
+		else document.getElementById('output').value = printFreqArr(nGramAnalysis(inputText, parseInt(document.getElementById('ngram-input').value)));
 	}
 	else if (command === 'rempunc') {
 		document.getElementById('output').value = removePunc(inputText);
 	}
 	else if (command === 'splitstr') {
-		document.getElementById('output').value = splitString(inputText, params[0]);
+		document.getElementById('output').value = splitString(inputText, parseInt(document.getElementById('splitstr-input').value));
 	}
 	else if (command === 'cshift') {
-		document.getElementById('output').value = caesarShift(inputText, cryptType, params[0]);
+		document.getElementById('output').value = caesarShift(inputText, cryptType, parseInt(document.getElementById('cshift-input').value));
 	}
 	else if (command === 'ssgaps') {
-		document.getElementById('output').value = substringGaps(inputText, params[0]);
+		document.getElementById('output').value = substringGaps(inputText, parseInt(document.getElementById('ssgaps-input').value));
 	}
 	else if (command === 'monosub') {
-		document.getElementById('output').value = monoSub(inputText, cryptType, params[0]);
+		document.getElementById('output').value = monoSub(inputText, cryptType, document.getElementById('monosub-input').value);
+	}
+	else if (command === 'playfair') {
+		document.getElementById('output').value = playfair(inputText, 'encrypt', document.getElementById('playfair-input').value);
 	}
 	else if (command === 'playgrid') {
-		playfairGrid(inputText, params[0]);
+		playfairGrid(inputText, true);
 	}
-}
-
-//Change onclick attribute of button, such that it passes the correct parameter value to the corresponding function
-function updateControlButton(target, type) {
-	if (type === 'number') {
-		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [' + document.getElementById(target + '-input').value + '])')
-	}
-	else if (type === 'string') {
-		document.getElementById(target + '-btn').setAttribute('onclick', 'execMethod(\'' + target + '\', [\'' + document.getElementById(target + '-input').value + '\'])')
-	}
-}
-
-//(On scroll event) checks if the mouse is scrolled up (deltaY = -100) or down (deltaY = 100) and changes execMethod params accordingly.
-function scrollControlButton(target, e) {
-	let length = parseInt(document.getElementById(target + "-input").value);
-	if (e.deltaY < 0 && length <= document.getElementById(target + "-btn").max ) {
-		document.getElementById(target + "-btn").setAttribute("onclick", 'execMethod(\'' + target + '\', [' + (length+1) + '])');
-	}
-	else if (e.deltaY > 0 && length >= document.getElementById(target + "-btn").min ) {
-		document.getElementById(target + "-btn").setAttribute('onclick', 'execMethod(\'' + target + '\', [' + (length-1) + '])');
-	}
-}
-
-//Change the placeholder of a pers-plac input such that when typed over the placeholder is removed
-function updatePersPlaceholder(target, placeholder) {
-	let input = document.getElementById(target + "-input").value;
-	//let placeholder = document.getElementById(target + "-plac").value;
-	let blocks = input.split(" ");
-	let currentStr = "";	//currentStr is the string currently being replaced with ␣'s
-	let sum = 0;	//sum is the position through the placeholder from left to right
-	for (i=0; i<blocks.length; i++) {
-		currentStr = placeholder.substr(sum, blocks[i].length);	//sub string from current position(sum) and length of the current block(of text) from input
-		placeholder = placeholder.replace(currentStr, ' '.repeat(blocks[i].length));	//replace equivalent of input text with ␣'s
-		sum += blocks[i].length + 1;	//sum is updated to be the length of the input strings plus the space between them
-	}
-	document.getElementById(target + '-plac').setAttribute('value', placeholder);
 }
 
 //Changes the type (en/decrypt) as well as the image when the en/decrypt toggle image is clicked
@@ -138,15 +75,6 @@ function flipCryptType() {
 
 //Changes the output type (text/graph) as well as the image when the outputType image is clicked
 function flipOutputType() {
-	// if (outputType === 'textbox') {
-	// 	document.getElementById("outputTypeImg").setAttribute('src', './images/graph.png');
-	// 	outputType = 'graph';
-	// }
-	// else if (outputType === 'graph') {
-	// 	document.getElementById("outputTypeImg").setAttribute('src', './images/textbox.png');
-	// 	outputType = 'textbox';
-	// }
-
 	if (outputType === 'textbox') {
 		document.getElementById('outputTypeIcon').innerHTML = 'insert_chart_outlined';
 		outputType = 'graph';
@@ -170,6 +98,7 @@ function toggleView(view) {
 	document.getElementById(view).style.display = "flex";
 }
 
+//Changes between tabs (ie control panel slides)
 function toggleTab(tab) {
 	document.querySelectorAll('.active-tab').forEach((tb) => tb.classList.remove('active-tab'));
 	document.getElementById(tab + '-tab').classList.add('active-tab');

@@ -39,7 +39,7 @@ function removePunc(str) {
 }
 
 //Removes spaces & punctuation then splits string into groups of n.
-function splitString(str, n) {
+function splitString(str, n = 3) {
 	if (typeof(n) !== "number" || n < 1) {
 		alert('Please enter a valid number.');
 		return "error";

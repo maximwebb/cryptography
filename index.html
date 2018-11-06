@@ -31,17 +31,14 @@
 
             <div class="controlButton">
                 <label for="splitstr-input">Split string:</label>
-                <input id="splitstr-input" type="number" value="3" name="splitstr-input" min="1">
-                <div id="splitstr-btn" onclick="execMethod('splitstr', [3])">&rarr;</div>
+                <input id="splitstr-input" class="wheel-input" type="number" value="3" name="splitstr-input" min="1">
+                <div id="splitstr-btn" onclick="execMethod('splitstr')">&rarr;</div>
             </div>
             <div class="controlButton">
                 <label for="ngram-input">N-Gram Analysis:</label>
-                <input id="ngram-input" type="number" value="1" name="ngram-input" min="1" max="50">
-                <div id="ngram-btn" onclick="execMethod('ngram', [1])">&rarr;</div>
+                <input id="ngram-input" class="wheel-input" type="number" value="1" name="ngram-input" min="1" max="50">
+                <div id="ngram-btn" onclick="execMethod('ngram')">&rarr;</div>
             </div>
-            <!--<div id="output-type">-->
-                <!--<img id="outputTypeImg" src="./images/textbox.png" onclick="flipOutputType()">-->
-            <!--</div>-->
             <div id="output-type">
                 <i id="outputTypeIcon" class="material-icons" onclick="flipOutputType()">list</i>
             </div>
@@ -50,15 +47,12 @@
         <div id="substitution-panel" class="panel">
             <div class="controlButton">
                 <label for="cshift-input">Caesar Shift:</label>
-                <input id="cshift-input" type="number" value="3" name="cshift-input" min="1" max="25">
+                <input id="cshift-input" class="wheel-input" type="number" value="3" name="cshift-input" min="0" max="25">
                 <div id="cshift-btn" onclick="execMethod('cshift', [3])">&rarr;</div>
             </div>
             <div class="controlButton">
                 <label for="monosub-input">Mono Substitution:</label>
-                <div class="pers-plac-input">
-                    <input class="persistent-placeholder" id="monosub-plac" value="abcdefghijklmnopqrstuvwxyz" autocomplete="off">
-                    <input class="actual-text-input" id="monosub-input" spellcheck="false" maxlength="26">
-                </div>
+                <input class="actual-text-input" id="monosub-input" placeholder="abcdefghijklmnopqrstuvwxyz" spellcheck="false" maxlength="26">
                 <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
             </div>
             <div id="crypt-direction">
@@ -69,13 +63,19 @@
         <div id="viginere-panel" class="panel">
             <div class="controlButton">
                 <label for="ssgaps-input">Gaps between strings of length:</label>
-                <input id="ssgaps-input" type="number" value="3" name="ssgaps-input" min="1">
-                <div id="ssgaps-btn" onclick="execMethod('ssgaps', [3])">&rarr;</div>
+                <input id="ssgaps-input" class="wheel-input" type="number" value="3" name="ssgaps-input" min="1">
+                <div id="ssgaps-btn" onclick="execMethod('ssgaps')">&rarr;</div>
             </div>
         </div>
 
         <div id="playfair-panel" class="panel">
-            <div class="option option-1" onclick="execMethod('playgrid', [false])">Frequency Grid</div>
+            <div class="option option-1" onclick="execMethod('playgrid')">Frequency Grid</div>
+
+            <div class="controlButton">
+                <label for="playfair-input">Playfair:</label>
+                <input id="playfair-input" class="keyword-input" type="text">
+                <div id="playfair-btn" onclick="execMethod('playfair')">&rarr;</div>
+            </div>
         </div>
 
     </div>
