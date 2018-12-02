@@ -6,7 +6,8 @@
     justify-content: space-between;
     margin: 0 auto 120px auto;
     height: 200px;
-    background-color: #e8e8e8;
+    background-color: #1e272c;
+    color: #c8c8c8;
     box-shadow: 0px 1px 7px 0px #00000070;
 }
 
@@ -44,7 +45,7 @@
 #control-panel-tabs {
     margin: 0;
     width: 100%;
-    background-color: #673ab7;
+    background-color: #01579b;
     color: #fff;
 }
 
@@ -62,12 +63,12 @@
     user-select: none;
 }
 #ul-tabs li:not(.active-tab):hover {
-    background-color: #4a148c;
+    background-color: #1a237e;
 }
 
 .active-tab {
-    background-color: #e8e8e8;
-    color: #4a148c;
+    background-color: #1e272c;
+    color: #e8e8e8;
 }
 
 /*.active-tab:hover {*/

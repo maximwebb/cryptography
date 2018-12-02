@@ -1,3 +1,8 @@
+body {
+    background-color: #263238;
+    color: #c8c8c8;
+}
+
 .container {
     margin: auto 25%;
 }
@@ -19,6 +24,9 @@
 #input, #output {
     width: 47.5%;
     height: 400px;
+    border: none;
+    background-color: #1e272c;
+    color: #c8c8c8;
 }
 
 #copy-btn {
@@ -48,7 +56,7 @@
 }
 
 #grid tr:nth-child(2n) {
-    background-color: #e8e8e8;
+    background-color: #1a2042;
 }
 
 #grid td {
@@ -70,11 +78,11 @@
     border-radius: 2px;
     cursor: pointer;
     transition: 0.2s;
-    border: 1px solid #673ab7;
+    border: 1px solid #01579b;
 }
 
 .option-1:hover {
-    background-color: #673ab7;
+    background-color: #01579b;
     color: #ffffff;
 }
 
@@ -84,7 +92,7 @@
     margin: 0 12px;
     padding: 0;
     border-radius: 2px;
-    border: 1px solid #673ab7;
+    border: 1px solid #01579b;
     cursor: pointer;
 }
 
@@ -100,13 +108,14 @@
     transition: 0.2s;
     border-width: 0 0 0 1px;
     border-style: solid; 
-    border-color:  #673ab7;
-    background-color: #e8e8e8;
+    border-color:  #01579b;
+    background-color: #1e272c;
+    color: #c8c8c8;
     width: 50px;
 }
 
 .controlButton input:focus {
-    background-color: #ffffff;
+    background-color: #1a2042;
 }
 
 #monosub-input {
@@ -126,18 +135,18 @@
 }
 
 #monosub-input:focus {
-    background-color: transparent;
+    background-color: #1a2042;
 }
 
 .controlButton div:last-child {
     padding: 8px;
     border-width: 0 0 0 1px;
     border-style: solid; 
-    border-color:  #673ab7;
+    border-color:  #01579b;
 }
 
 .controlButton div:last-child:hover {
-    background-color: #673ab7;
+    background-color: #01579b;
     color: #ffffff;
 }
 

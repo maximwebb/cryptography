@@ -107,6 +107,8 @@ function toggleTab(tab) {
 	toggleView('flex-container-main');
 }
 
+let outputChart;
+
 //Displays a bar chart
 function barChart(data, xAxis, yAxis, order = 'numeric') {
 	//Formats data according to parameters
@@ -115,32 +117,66 @@ function barChart(data, xAxis, yAxis, order = 'numeric') {
 	xData = data.map(el => el[0]);
 	yData = data.map(el => el[1]);
 
-	var ctx = document.getElementById('outputChart').getContext('2d');
 	toggleView('graph-container');
 
-	var outputChart = new Chart(ctx, {
-		type: 'bar',
-		data: {
-			labels: xData,
-			datasets: [{
-				label: yAxis,
-				data: yData,
-				backgroundColor: 'rgba(255, 99, 132, 0.8)',
-				borderColor: 'rgba(255,99,132,1)',
-				borderWidth: 1
-			}]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
+
+	if (!outputChart) {
+
+		var ctx = document.getElementById('outputChart').getContext('2d');
+
+		outputChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: xData,
+				datasets: [{
+					label: yAxis,
+					data: yData,
+					backgroundColor: '#0277bd',
+					borderColor: '#0277bd',
+					borderWidth: 1,
 				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor: '#c8c8c8'
+						}
+					}],
+					xAxes: [{
+						ticks: {
+							fontColor: '#c8c8c8'
+						}
+					}]
+				},
+				legend: {
+					labels: {
+						fontColor: '#c8c8c8'
+					}
+				}
 			}
-		}
-	});
+		});
+	}
+	else {
+
+		outputChart.data.labels = xData;
+		outputChart.data.datasets.forEach((dataset) => {
+			dataset.data.pop();
+		});
+		outputChart.update();
+
+
+		outputChart.data.datasets[0].data = yData;
+		outputChart.update();
+
+
+
+	}
+
 }
+
+
 
 //Take sorted array of pairs and assigns different shades of a given colour.
 function heatMap(arr, colour) {
