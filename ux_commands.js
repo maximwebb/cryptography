@@ -32,32 +32,36 @@ function setup() {
 
 //Enters input text, and executes a specified command on it.
 function execMethod(command, params = []) {
+	console.log('bar');
 	let inputText = document.getElementById('input').value;
-
+	let output = document.getElementById('output');
 	if (command === 'ngram') {
 		if (outputType === 'graph') barChart(nGramAnalysis(inputText, parseInt(document.getElementById('ngram-input').value), 26), '', 'Frequency %');
 		else document.getElementById('output').value = printFreqArr(nGramAnalysis(inputText, parseInt(document.getElementById('ngram-input').value)));
 	}
 	else if (command === 'rempunc') {
-		document.getElementById('output').value = removePunc(inputText);
+		output.value = removePunc(inputText);
 	}
 	else if (command === 'splitstr') {
-		document.getElementById('output').value = splitString(inputText, parseInt(document.getElementById('splitstr-input').value));
+		output.value = splitString(inputText, parseInt(document.getElementById('splitstr-input').value));
 	}
 	else if (command === 'cshift') {
-		document.getElementById('output').value = caesarShift(inputText, cryptType, parseInt(document.getElementById('cshift-input').value));
+		output.value = caesarShift(inputText, cryptType, parseInt(document.getElementById('cshift-input').value));
 	}
 	else if (command === 'ssgaps') {
-		document.getElementById('output').value = substringGaps(inputText, parseInt(document.getElementById('ssgaps-input').value));
+		output.value = substringGaps(inputText, parseInt(document.getElementById('ssgaps-input').value));
 	}
 	else if (command === 'monosub') {
-		document.getElementById('output').value = monoSub(inputText, cryptType, document.getElementById('monosub-input').value);
+		output.value = monoSub(inputText, cryptType, document.getElementById('monosub-input').value);
 	}
 	else if (command === 'playfair') {
-		document.getElementById('output').value = playfair(inputText, 'encrypt', document.getElementById('playfair-input').value);
+		output.value = playfair(inputText, 'encrypt', document.getElementById('playfair-input').value);
 	}
 	else if (command === 'playgrid') {
 		playfairGrid(inputText, true);
+	}
+	else if (command === 'coltrn') {
+		output.value = columnarTranspose(inputText, document.getElementById('transpose-input').value.length);
 	}
 }
 

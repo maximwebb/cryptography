@@ -22,6 +22,7 @@
             <li id="substitution-tab" class="tab" onclick="toggleTab('substitution')">Substitution</li>
             <li id="viginere-tab" class="tab" onclick="toggleTab('viginere')">Viginere</li>
             <li id="playfair-tab" class="tab" onclick="toggleTab('playfair')">Playfair</li>
+            <li id="transpose-tab" class="tab" onclick="toggleTab('transpose')">Transpose</li>
         </ul>
     </div>
 
@@ -75,6 +76,14 @@
                 <label for="playfair-input">Playfair:</label>
                 <input id="playfair-input" class="keyword-input" type="text">
                 <div id="playfair-btn" onclick="execMethod('playfair')">&rarr;</div>
+            </div>
+        </div>
+
+        <div id="transpose-panel" class="panel">
+            <div class="controlButton">
+                <label for="transpose-input">Transpose:</label>
+                <input class="actual-text-input" id="transpose-input" placeholder="Enter text" spellcheck="false" maxlength="15">
+                <div id="transpose-btn" onclick="execMethod('coltrn')">&rarr;</div>
             </div>
         </div>
 

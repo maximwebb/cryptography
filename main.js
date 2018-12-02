@@ -38,6 +38,15 @@ function removePunc(str) {
 	return (str.toLowerCase()).replace(/[^a-z]/g, '');
 }
 
+//Performs a deep clone on an array
+function cloneArr(arr) {
+	let newArr = [];
+	for (let i = 0; i < arr.length; i++) {
+		newArr[i] = arr[i];
+	}
+	return newArr;
+}
+
 //Removes spaces & punctuation then splits string into groups of n.
 function splitString(str, n = 3) {
 	if (typeof(n) !== "number" || n < 1) {
@@ -381,5 +390,89 @@ function playfair(str, type, key) {
 function playfairBigrams(str, relative = false) {
 	let pairsArr = splitString(str, 2).split(' ');
 	return nGramAnalysis(pairsArr, 2, 0, relative);
+}
+
+function columnarTransposePermute(text, keyLength) {
+	console.log('foo');
+	let rowNum = Math.ceil(text.length/keyLength);
+	let colArr = [];
+	//Transpose text
+	for (let i = 0; i < keyLength; i++) {
+		colArr.push([])
+		for (let j = 0; j < rowNum; j++) {
+			colArr[i].push(text[i * rowNum + j]);
+		}
+	}
+	let permArr = permuteArray(colArr);
+	let outputStrArr = [];
+	permArr.forEach((ar) => {
+		outputStrArr.push([]);
+		for (let i = 0; i < rowNum; i++) {
+			for (let j = 0; j < ar.length; j++) {
+				outputStrArr[outputStrArr.length - 1] += ar[j][i];
+			}
+		}
+	});
+
+	return outputStrArr;
+}
+
+//Performs a columnar transpose en/decryption with a known key.
+function columnarTranspose(inputStr, type = 'encrypt', key) {
+	console.log('foo');
+	let str = removePunc(inputStr);
+	for (let i = 0; i < str.length % key.length; i++) {
+		str += ' ';
+	}
+	let rowNum = str.length/key.length;
+	let colArr = [];
+	let outputStr = '';
+
+	if (type === 'encrypt') {
+		for (let i = 0; i < key.length; i++) {
+			colArr.push([key[i], []]);
+			for (let j = 0; j < rowNum; j++) {
+				colArr[i][1].push(str[j * key.length + i]);
+			}
+		}
+		for (let i = 0; i < key.length; i++) {
+			colArr.sort((a, b) => {
+				return parseInt(a[0].charCodeAt() - b[0].charCodeAt());
+			});
+		}
+		for (let i = 0; i < key.length; i++) {
+			for (let j = 0; j < rowNum; j++) {
+				outputStr += colArr[i][1][j];
+			}
+		}
+	}
+	else {
+
+	}
+
+	return outputStr;
+}
+
+//Recursively generate all possible permutations of an array, returning result as array of arrays.
+function permuteArray(arr) {
+	if (arr.length == 1) return [arr];
+	else {
+		var head = arr[0];
+		var tailPermutations = permuteArray(arr.slice(1, arr.length));
+
+		var permutations = [];
+
+		for (i in tailPermutations) {
+			tailPermutation = tailPermutations[i];
+			for (j = 0; j < arr.length; j++) {
+				// make copy of tailPermutation
+				// insert head at index j
+				let copyArr = cloneArr(tailPermutation);
+				copyArr.splice(j, 0, head);
+				permutations.push(copyArr);
+			}
+		}
+		return permutations;
+	}
 }
 
