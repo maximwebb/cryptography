@@ -108,6 +108,9 @@ function toggleTab(tab) {
 	document.getElementById(tab + '-tab').classList.add('active-tab');
 	document.querySelectorAll('.active-panel').forEach((pn) => pn.classList.remove('active-panel'));
 	document.getElementById(tab + '-panel').classList.add('active-panel');
+
+	document.querySelectorAll('.cryptTypeIcon').forEach((el) => {el.innerHTML = 'lock'});
+	cryptType = 'encrypt';
 	toggleView('flex-container-main');
 }
 
