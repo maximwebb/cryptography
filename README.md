@@ -1,7 +1,7 @@
 # Cryptography
 A set of tools for breaking classical ciphers. This will include Monoalphabetic substitutions, vigenere encrpytion/decryption, string manipulation tools and more.
 
-String Manipulation Methods
+General-purpose Methods
 ===========================
 
 removePunc(str)
@@ -34,6 +34,32 @@ extractStrings("Apple orange pears lemons", 3);
 //["alrgesms", "peaealo", "ponpren"]
 ```
 
+cloneArr(arr)
+-------------
+Performs a deep clone on an array
+
+Example:
+```javascript
+cloneArr([1, 2, 4, 7]);
+//[1, 2, 4, 7]
+```
+
+permuteArr(arr)
+---------------
+Recursively generates every permutation of an array, and returns the list of permutations as an array of arrays.
+
+Exmaple:
+```javascript
+permuteArray(['a', 'b', 'c']);
+//[
+  //["a", "b", "c"],
+  //["b", "a", "c"],
+  //["b", "c", "a"],
+  //["a", "c", "b"],
+  //["c", "a", "b"],
+  //["c", "b", "a"]
+//]
+```
 Cipher Encryption/Decryption Methods
 ====================================
 
@@ -75,6 +101,16 @@ Example:
 ```javascript
 playfair("Elementary, my dear Watson.", "phone");
 //"nmfupeqdtwlzfnbqvbutne"
+```
+
+columnarTranspose(inputStr, type, key)
+--------------------------------------
+Encrypts/decryption a string `inputStr`, using a columnar transpose. Does not preserve formatting.
+
+Example:
+```javascript
+columnarTranspose("applebanana", "encrypt", "cat")
+//"penaalanpba"
 ```
 
 Cipher Analysis Methods
