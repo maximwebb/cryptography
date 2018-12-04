@@ -66,25 +66,25 @@ function execMethod(command, params = []) {
 }
 
 //Changes the type (en/decrypt) as well as the image when the en/decrypt toggle image is clicked
-function flipCryptType() {
+function flipCryptType(icon) {
 	if (cryptType === 'encrypt') {
-		document.getElementById('cryptTypeIcon').innerHTML = 'lock_open';
+		icon.innerHTML = 'lock_open';
 		cryptType = 'decrypt';
 	}
 	else if (cryptType === 'decrypt') {
-		document.getElementById('cryptTypeIcon').innerHTML = 'lock';
+		icon.innerHTML = 'lock';
 		cryptType = 'encrypt';
 	}
 }
 
 //Changes the output type (text/graph) as well as the image when the outputType image is clicked
-function flipOutputType() {
+function flipOutputType(icon) {
 	if (outputType === 'textbox') {
-		document.getElementById('outputTypeIcon').innerHTML = 'insert_chart_outlined';
+		icon.innerHTML = 'insert_chart_outlined';
 		outputType = 'graph';
 	}
 	else if (outputType === 'graph') {
-		document.getElementById('outputTypeIcon').innerHTML = 'list';
+		icon.innerHTML = 'list';
 		outputType = 'textbox';
 	}
 }

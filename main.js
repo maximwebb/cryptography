@@ -392,30 +392,30 @@ function playfairBigrams(str, relative = false) {
 	return nGramAnalysis(pairsArr, 2, 0, relative);
 }
 
-function columnarTransposePermute(text, keyLength) {
-	console.log('foo');
-	let rowNum = Math.ceil(text.length/keyLength);
-	let colArr = [];
-	//Transpose text
-	for (let i = 0; i < keyLength; i++) {
-		colArr.push([])
-		for (let j = 0; j < rowNum; j++) {
-			colArr[i].push(text[i * rowNum + j]);
-		}
-	}
-	let permArr = permuteArray(colArr);
-	let outputStrArr = [];
-	permArr.forEach((ar) => {
-		outputStrArr.push([]);
-		for (let i = 0; i < rowNum; i++) {
-			for (let j = 0; j < ar.length; j++) {
-				outputStrArr[outputStrArr.length - 1] += ar[j][i];
-			}
-		}
-	});
-
-	return outputStrArr;
-}
+// function columnarTransposePermute(text, keyLength) {
+// 	console.log('foo');
+// 	let rowNum = Math.ceil(text.length/keyLength);
+// 	let colArr = [];
+// 	//Transpose text
+// 	for (let i = 0; i < keyLength; i++) {
+// 		colArr.push([])
+// 		for (let j = 0; j < rowNum; j++) {
+// 			colArr[i].push(text[i * rowNum + j]);
+// 		}
+// 	}
+// 	let permArr = permuteArr(colArr);
+// 	let outputStrArr = [];
+// 	permArr.forEach((ar) => {
+// 		outputStrArr.push([]);
+// 		for (let i = 0; i < rowNum; i++) {
+// 			for (let j = 0; j < ar.length; j++) {
+// 				outputStrArr[outputStrArr.length - 1] += ar[j][i];
+// 			}
+// 		}
+// 	});
+//
+// 	return outputStrArr;
+// }
 
 //Performs a columnar transpose en/decryption with a known key.
 function columnarTranspose(inputStr, type = 'encrypt', key) {
@@ -454,13 +454,13 @@ function columnarTranspose(inputStr, type = 'encrypt', key) {
 }
 
 //Recursively generate all possible permutations of an array, returning result as array of arrays.
-function permuteArray(arr) {
+function permuteArr(arr) {
 	if (arr.length == 1) return [arr];
 	else {
-		var head = arr[0];
-		var tailPermutations = permuteArray(arr.slice(1, arr.length));
+		let head = arr[0];
+		let tailPermutations = permuteArray(arr.slice(1, arr.length));
 
-		var permutations = [];
+		let permutations = [];
 
 		for (i in tailPermutations) {
 			tailPermutation = tailPermutations[i];

@@ -41,7 +41,7 @@
                 <div id="ngram-btn" onclick="execMethod('ngram')">&rarr;</div>
             </div>
             <div id="output-type">
-                <i id="outputTypeIcon" class="material-icons" onclick="flipOutputType()">list</i>
+                <i id="outputTypeIcon" class="material-icons" onclick="flipOutputType(this)">list</i>
             </div>
         </div>
 
@@ -56,8 +56,8 @@
                 <input class="actual-text-input" id="monosub-input" placeholder="abcdefghijklmnopqrstuvwxyz" spellcheck="false" maxlength="26">
                 <div id="monosub-btn" onclick="execMethod('monosub', ['abcdefghijklmnopqrstuvwxyz'])">&rarr;</div>
             </div>
-            <div id="crypt-direction">
-                <i id="cryptTypeIcon" class="material-icons" onclick="flipCryptType()">lock</i>
+            <div class="crypt-direction">
+                <i class="cryptTypeIcon material-icons" onclick="flipCryptType(this)">lock</i>
             </div>
         </div>
 
@@ -77,11 +77,15 @@
                 <input id="playfair-input" class="keyword-input" type="text">
                 <div id="playfair-btn" onclick="execMethod('playfair')">&rarr;</div>
             </div>
+
+            <div id="crypt-direction">
+                <i class="cryptTypeIcon material-icons" onclick="flipCryptType(this)">lock</i>
+            </div>
         </div>
 
         <div id="transpose-panel" class="panel">
             <div class="controlButton">
-                <label for="transpose-input">Transpose:</label>
+                <label for="transpose-input">Columnar Transpose:</label>
                 <input class="actual-text-input" id="transpose-input" placeholder="Enter text" spellcheck="false" maxlength="15">
                 <div id="transpose-btn" onclick="execMethod('coltrn')">&rarr;</div>
             </div>
