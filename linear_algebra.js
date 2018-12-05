@@ -12,6 +12,16 @@ class Matrix extends Array {
 		}
 	}
 
+	static clone(m1) {
+		let arr = [];
+		for (let i = 0; i < m1.rowNum; i++) {
+			for (let j = 0; j < m1.colNum; j++) {
+				arr.push(m1[i][j]);
+			}
+		}
+		return new Matrix(arr, m1.rowNum, m1.colNum);
+	}
+
 	static add(m1, m2) {
 		if (m1.rowNum !== m2.rowNum || m1.colNum !== m2.colNum) {
 			console.error('Incompatible matrices.');
@@ -46,23 +56,25 @@ class Matrix extends Array {
 		if (m1.rowNum !== m1.colNum) {
 			console.error('Non-square matrix.');
 		}
-		for (let i = 0; i < m1.colNum - 1; i++) {
-			for (let j = i + 1; j < m1.rowNum; j++) {
-				let multiplier = m1[j][i] / m1[i][i];
-				m1[j][i] = 0;
-				for (let k = i + 1; k < m1.colNum; k++) {
-					m1[j][k] = m1[j][k] - multiplier * m1[i][k];
+		let m2 = this.clone(m1);
+		for (let i = 0; i < m2.colNum - 1; i++) {
+			for (let j = i + 1; j < m2.rowNum; j++) {
+				let multiplier = m2[j][i] / m2[i][i];
+				m2[j][i] = 0;
+				for (let k = i + 1; k < m2.colNum; k++) {
+					m2[j][k] = m2[j][k] - multiplier * m2[i][k];
 				}
 			}
 
 		}
 		res = 1;
-		for (let i = 0; i < m1.rowNum; i++) {
-			res *= m1[i][i];
+		for (let i = 0; i < m2.rowNum; i++) {
+			res *= m2[i][i];
 		}
 		res = Math.round(res * 10000) / 10000;
 		return res;
 	}
+	
 
 }
 
